@@ -234,6 +234,48 @@
   display: inline-block;
 }
 
+    /* ===== WHITE COLLAB TICKER ===== */
+.collab-ticker {
+  overflow: hidden;
+  border-top: 1px solid #222;
+  border-bottom: 1px solid #222;
+  padding: 25px 0;
+  margin-top: 60px;
+}
+
+.collab-track {
+  display: flex;
+  gap: 80px;
+  width: max-content;
+  animation: tickerScroll 30s linear infinite;
+}
+
+.collab-track span {
+  font-family: 'Playfair Display', serif;
+  font-size: 16px;
+  letter-spacing: 4px;
+  color: #ffffff; /* PURE WHITE */
+  white-space: nowrap;
+  transition: 0.3s;
+}
+
+/* luxury hover */
+.collab-track span:hover {
+  color: #c9a86a;
+  transform: scale(1.1);
+}
+
+/* pause on hover */
+.collab-ticker:hover .collab-track {
+  animation-play-state: paused;
+}
+
+/* smooth loop */
+@keyframes tickerScroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
   </style>
 </head>
 
@@ -293,6 +335,26 @@
   </div>
 </div>
 
+  <!-- COLLABORATION TICKER -->
+<div class="collab-ticker">
+  <div class="collab-track">
+
+    <span>LOI × STREET</span>
+    <span>LOI × MINIMAL</span>
+    <span>LOI × ROYAL</span>
+    <span>LOI × URBAN</span>
+    <span>LOI × ELITE</span>
+
+    <!-- duplicate for smooth infinite loop -->
+    <span>LOI × STREET</span>
+    <span>LOI × MINIMAL</span>
+    <span>LOI × ROYAL</span>
+    <span>LOI × URBAN</span>
+    <span>LOI × ELITE</span>
+
+  </div>
+</div>
+  
 <!-- FOUNDERS -->
 <div class="section founders">
   <h2>Founders</h2>
