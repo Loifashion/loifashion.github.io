@@ -19,53 +19,13 @@
 
     /* HEADER */
    header {
-  position: relative;
+  display: flex;
+  align-items: center;
   padding: 20px 60px;
 }
-
-/* CENTER LOGO */
-.logo-center {
-  text-align: center;
-}
-
-.logo {
-  height: 80px;
-}
-
-/* MENU TOP RIGHT */
-.menu-right {
-  position: absolute;
-  top: 30px;
-  right: 60px;
-}
-
-.menu-right a {
-  margin-left: 30px;
-  color: white;
-  text-decoration: none;
-  font-size: 13px;
-  letter-spacing: 2px;
-  position: relative;
-}
-
-/* underline effect */
-.menu-right a::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  bottom: -5px;
-  width: 0%;
-  height: 1px;
-  background: #c9a86a;
-  transition: 0.3s;
-}
-
-.menu-right a:hover::after {
-  width: 100%;
-}
-
-.menu-right a:hover {
-  color: #c9a86a;
+ 
+nav a {
+  margin-left: 25px;
 }
 
     nav a {
@@ -474,26 +434,6 @@ nav a:hover::after {
     width: 20px;
   }
 
- .menu-right a:hover {
-  color: #c9a86a;
-}
-
-/* ✅ TOP LEFT TEXT (correct place) */
-.top-left-text {
-  position: absolute;
-  top: 30px;
-  left: 60px;
-  font-size: 12px;
-  letter-spacing: 3px;
-  color: #c9a86a;
-  font-family: 'Inter', sans-serif;
-}
-
-/* ✅ MOBILE RESPONSIVE */
-@media (max-width: 768px) {
-
-  /* keep your mobile code here */
-
 }
   </style>
 </head>
@@ -501,23 +441,14 @@ nav a:hover::after {
 <body>
 
 <header>
+  <img src="head-logo.png" class="logo">
 
-  <!-- TOP LEFT TEXT -->
-  <div class="top-left-text">THE LUXURY OF INDIA</div>
-
-  <!-- CENTER LOGO -->
-  <div class="logo-center">
-    <img src="head-logo.png" class="logo">
-  </div>
-
-  <!-- TOP RIGHT MENU -->
-  <nav class="menu-right">
+  <nav>
     <a href="#">HOME</a>
     <a href="collection.html">COLLECTION</a>
     <a href="about.html">ABOUT</a>
     <a href="#contact">CONTACT</a>
   </nav>
-
 </header>
 
 <!-- HERO -->
