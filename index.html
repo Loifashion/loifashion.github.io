@@ -321,6 +321,42 @@ nav a:hover::after {
   display: inline-block;
 }
 
+    /* ===== UPCOMING COLLAB ===== */
+.upcoming-collab {
+  text-align: center;
+  padding: 60px 20px 30px;
+  border-top: 1px solid #222;
+  border-bottom: 1px solid #222;
+}
+
+.collab-label {
+  font-size: 11px;
+  letter-spacing: 4px;
+  color: #777;
+  margin-bottom: 10px;
+}
+
+.collab-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 32px;
+  letter-spacing: 3px;
+  color: #fff;
+  margin: 10px 0;
+}
+
+.collab-sub {
+  font-size: 13px;
+  letter-spacing: 2px;
+  color: #c9a86a;
+}
+
+/* animation */
+.collab-title {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeUp 1s ease forwards;
+}
+
     /* ===== WHITE COLLAB TICKER ===== */
 .collab-ticker {
   overflow: hidden;
@@ -595,6 +631,11 @@ nav a:hover::after {
   </div>
 </div>
 
+  <!-- UPCOMING COLLAB -->
+<div class="upcoming-collab">
+  <p class="collab-label">UPCOMING COLLABORATION</p>
+</div>
+  
   <!-- COLLABORATION TICKER -->
 <div class="collab-ticker">
   <div class="collab-track">
@@ -603,7 +644,6 @@ nav a:hover::after {
     <span>LOI × MINIMAL</span>
     <span>LOI × ROYAL</span>
     <span>LOI × URBAN</span>
-    <span>— FUTURE —</span>
     <span>LOI × ELITE</span>
     <span>LOI × Amazon</span>
     <span>LOI × Flipkart</span>
@@ -614,7 +654,6 @@ nav a:hover::after {
     <span>LOI × MINIMAL</span>
     <span>LOI × ROYAL</span>
     <span>LOI × URBAN</span>
-    <span>— FUTURE —</span>
     <span>LOI × ELITE</span>
     <span>LOI × Amazon</span>
     <span>LOI × Flipkart</span>
@@ -689,10 +728,10 @@ nav a:hover::after {
 </div>
 
     <div class="footer-right">
+      <a href="#">FAQ</a>
       <a href="#">Privacy Policy</a>
       <a href="#">Terms & Conditions</a>
       <a href="#">Refund Policy</a>
-      <a href="#">FAQ</a>
     </div>
 
   </div>
@@ -720,6 +759,13 @@ nav a:hover::after {
       <p>Email: support@loifashion.com</p>
     </div>
 
+    <div class="footer-box right">
+      <p><strong>Address</strong></p>
+      <p>London, United Kingdom, Catford</p>
+      <p>Contact: +44 748596 123</p>
+      <p>Email: support@loifashion.com</p>
+    </div>
+    
   </div>
 
 </footer>
