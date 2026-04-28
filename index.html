@@ -22,9 +22,9 @@
 
     /* HEADER */
     header {
-      display: grid;
-      grid-template-columns: 1fr auto 1fr;
-      align-items: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
       padding: 20px 60px;
     }
 
@@ -35,6 +35,25 @@
       font-size: 13px;
       letter-spacing: 2px;
     }
+
+    nav a {
+  position: relative;
+}
+
+nav a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -5px;
+  width: 0%;
+  height: 1px;
+  background: #c9a86a;
+  transition: 0.3s;
+}
+
+nav a:hover::after {
+  width: 100%;
+}
 
     nav a:hover {
       color: #c9a86a;
@@ -53,6 +72,22 @@
       padding-left: 80px;
     }
 
+    .hero {
+  position: relative; /* add this line */
+}
+
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+}
+
+.hero-text {
+  position: relative;
+  z-index: 2;
+}
+
     .hero-text h1 {
       font-family: 'Playfair Display', serif;
       font-size: 60px;
@@ -61,7 +96,7 @@
 
     .hero-text p {
       color: #aaa;
-      margin: 25px 1 15px;
+      margin: 25px 1px 15px;
     }
 
     .btn {
@@ -108,8 +143,14 @@
     }
 
     .card img {
-      width: 100%;
-    }
+  width: 100%;
+  transition: 0.4s;
+}
+
+.card img:hover {
+  transform: scale(1.05);
+  filter: brightness(1.1);
+}
 
     /* FOUNDERS */
     .founder-line {
@@ -331,7 +372,7 @@
   }
 
   .card {
-    width: 45%; /* 2 per row */
+    width: 48%; /* 2 per row */
   }
 
   .card p {
@@ -433,7 +474,7 @@
 
   <div class="products">
     <div class="card">
-      <img src="tshirt_part_1.png">
+<img src="tshirt_part_1.png" loading="lazy">
       <p>LOI EMBLEM TEE</p>
     </div>
 
