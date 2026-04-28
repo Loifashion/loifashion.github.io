@@ -234,10 +234,18 @@ nav a:hover::after {
       flex: 1;
     }
 
-    .footer-center {
-      text-align: center;
-      -webkit-tap-highlight-color: transparent;
-    }
+    .footer-center a {
+  text-decoration: none;   /* removes underline */
+  outline: none;           /* removes focus outline */
+  border: none;
+}
+
+.footer-center a:focus,
+.footer-center a:active,
+.footer-center a:visited {
+  outline: none;
+  text-decoration: none;
+}
 
     .footer-right {
       text-align: right;
