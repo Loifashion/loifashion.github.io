@@ -40,6 +40,10 @@
   justify-self: end;
 }
  
+.menu-left {
+  margin-top: -10px; /* moves menu UP */
+}
+
 nav a {
   margin-left: 25px;
 }
@@ -362,7 +366,21 @@ nav a:hover::after {
     /* ===== MOBILE RESPONSIVE ===== */
 @media (max-width: 768px) {
 .right-icons {
-  margin-top: 10px;
+  justify-self: end;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-top: -10px; /* moves UP */
+}
+
+.icon-btn {
+  font-size: 20px; /* increase size */
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.icon-btn:hover {
+  transform: scale(1.2);
 }
 
   .founders h2 {
