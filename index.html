@@ -273,15 +273,16 @@ nav a:hover::after {
       color: #c9a86a;
     }
 
-    .icon {
-      width: 23px;
-      margin: 0 5px;
-      transition: 0.3s;
-    }
+    .icon-btn {
+  width: 22px;
+  height: 22px;
+  cursor: pointer;
+  transition: 0.3s;
+}
 
-    .icon:hover {
-      transform: scale(1.2);
-    }
+.icon-btn:hover {
+  transform: scale(1.2);
+}
 
     .footer-bottom {
   display: flex;
@@ -605,10 +606,14 @@ nav a:hover::after {
 
   <!-- RIGHT ICONS -->
   <div class="right-icons">
-    <span class="icon-btn">👤</span>
-    <span class="icon-btn">🛒</span>
-    <span class="icon-btn">☰</span>
-  </div>
+
+  <img src="user.svg" class="icon-btn" alt="Account">
+
+  <img src="shopping-cart.svg" class="icon-btn" alt="Cart">
+
+  <img src="list.svg" class="icon-btn" alt="Menu">
+
+</div>
 
 </header>
 
