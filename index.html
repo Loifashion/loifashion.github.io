@@ -431,7 +431,25 @@ nav a:hover::after {
   display: flex;
   align-items: center;
   gap: 15px;
-  margin-top: -10px; /* moves UP */
+}
+
+  .right-icons {
+  justify-self: end;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.icon-svg {
+  width: 22px;
+  height: 22px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.icon-svg:hover {
+  transform: scale(1.15);
+  opacity: 0.8;
 }
 
 .icon-btn {
@@ -606,11 +624,12 @@ nav a:hover::after {
   </div>
 
   <!-- RIGHT ICONS -->
-  <div class="right-icons">
-    <span class="icon-btn">👤</span>
-    <span class="icon-btn">🛒</span>
-    <span class="icon-btn">☰</span>
-  </div>
+ <div class="right-icons">
+  <a href="#"><img src="search.svg" class="icon-svg"></a>
+  <a href="#"><img src="user.svg" class="icon-svg"></a>
+  <a href="#"><img src="shopping.svg" class="icon-svg"></a>
+  <a href="#"><img src="list.svg" class="icon-svg"></a>
+</div>
 
 </header>
 
