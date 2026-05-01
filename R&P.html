@@ -83,11 +83,76 @@ p {
   transform: translateY(-3px);
   transition: 0.4s ease;
 }
+
+  /* HEADER */
+.faq-header {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  padding: 20px;
+  position: sticky;
+  top: 0;
+  background: #000;
+  z-index: 999;
+  border-bottom: 1px solid #111;
+}
+
+/* LEFT ICON */
+.left {
+  justify-self: start;
+}
+
+.icon-svg {
+  width: 28px;
+  height: 28px;
+  transition: 0.3s;
+}
+
+.icon-svg:hover {
+  transform: scale(1.15);
+}
+
+/* CENTER LOGO */
+.center {
+  justify-self: center;
+}
+
+.logo {
+  height: 70px;
+}
+
+/* RIGHT EMPTY */
+.right {
+  justify-self: end;
+}
+  
 </style>
 </head>
 
 <body>
 
+  <body>
+
+<!-- HEADER -->
+<header class="faq-header">
+
+  <!-- HOME ICON (LEFT) -->
+  <div class="left">
+    <a href="index.html">
+      <img src="home.svg" class="icon-svg">
+    </a>
+  </div>
+
+  <!-- LOGO (CENTER) -->
+  <div class="center">
+    <img src="head-logo.png" class="logo">
+  </div>
+
+  <!-- EMPTY RIGHT (for balance) -->
+  <div class="right"></div>
+
+</header>
+    
 <section class="refund-section">
   <div class="container">
 
