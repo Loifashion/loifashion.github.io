@@ -1,0 +1,28 @@
+<h2>Welcome to LOI</h2>
+<button onclick="logout()">Logout</button>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.12.1/firebase-app.js";
+import { getAuth, signOut, onAuthStateChanged } 
+from "https://www.gstatic.com/firebasejs/12.12.1/firebase-auth.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyBEodih-ToCBTVjMmqC7JFmGvR7qDcdM-8",
+  authDomain: "loi7-1ddfc.firebaseapp.com",
+  projectId: "loi7-1ddfc",
+  appId: "1:777558781536:web:ed9252fe4adaa0d93e9d05"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+
+onAuthStateChanged(auth, (user) => {
+  if (!user) window.location.href = "login.html";
+});
+
+window.logout = function() {
+  signOut(auth).then(() => {
+    window.location.href = "login.html";
+  });
+};
+</script>
