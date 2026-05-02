@@ -1,229 +1,275 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LOI Login</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LOI Login</title>
 
-<style>
-body {
-  margin: 0;
-  font-family: Arial;
-  background: #000;
-  color: #fff;
-  display: flex;
-  height: 100vh;
-}
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #000;
+      color: #fff;
+      display: flex;
+      min-height: 100vh;
+    }
 
-/* LEFT BANNER */
-.left {
-  flex: 1;
-  background: url('Banner.png') center/cover no-repeat;
-}
+    .left {
+      flex: 1;
+      background: url('Banner.png') center/cover no-repeat;
+    }
 
-/* RIGHT SIDE */
-.right {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: 60px;
-}
+    .right {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 60px;
+      box-sizing: border-box;
+    }
 
-/* TITLE */
-h1 {
-  font-size: 32px;
-  margin-bottom: 10px;
-}
+    h1 {
+      font-size: 32px;
+      margin-bottom: 10px;
+      letter-spacing: 2px;
+    }
 
-.subtitle {
-  color: #c9a86a;
-  margin-bottom: 30px;
-}
+    .subtitle {
+      color: #c9a86a;
+      margin-bottom: 30px;
+    }
 
-/* INPUTS */
-input, select {
-  width: 100%;
-  padding: 12px;
-  margin: 10px 0;
-  background: black;
-  border: 1px solid #c9a86a;
-  color: white;
-}
+    input,
+    select {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      background: #000;
+      border: 1px solid #c9a86a;
+      color: #fff;
+      box-sizing: border-box;
+    }
 
-/* BUTTON */
-button {
-  width: 100%;
-  padding: 12px;
-  margin-top: 15px;
-  background: #c9a86a;
-  border: none;
-  cursor: pointer;
-}
+    button {
+      width: 100%;
+      padding: 12px;
+      margin-top: 15px;
+      background: #c9a86a;
+      color: #000;
+      border: none;
+      cursor: pointer;
+      font-weight: bold;
+    }
 
-button:hover {
-  opacity: 0.85;
-}
+    button:hover {
+      opacity: 0.85;
+    }
 
-/* SWITCH TEXT */
-.switch {
-  margin-top: 20px;
-  font-size: 13px;
-}
+    .switch {
+      margin-top: 20px;
+      font-size: 13px;
+    }
 
-.switch span {
-  color: #c9a86a;
-  cursor: pointer;
-}
+    .switch span {
+      color: #c9a86a;
+      cursor: pointer;
+    }
 
-/* HIDE */
-.hidden {
-  display: none;
-}
+    .hidden {
+      display: none;
+    }
 
-#msg {
-  margin-top: 10px;
-  color: #c9a86a;
-}
-</style>
+    #msg {
+      margin-top: 15px;
+      color: #c9a86a;
+      font-size: 14px;
+    }
 
+    @media (max-width: 768px) {
+      body {
+        flex-direction: column;
+      }
+
+      .left {
+        height: 250px;
+        flex: none;
+      }
+
+      .right {
+        padding: 30px;
+      }
+    }
+  </style>
 </head>
 
 <body>
 
-<!-- LEFT -->
+  <div class="left"></div>
 
-<div class="left"></div>
+  <div class="right">
 
-<!-- RIGHT -->
+    <h1>WELCOME TO LOI</h1>
+    <p class="subtitle">Luxury Begins Here</p>
 
-<div class="right">
+    <!-- LOGIN FORM -->
+    <div id="loginBox">
+      <input type="text" id="email" placeholder="Email">
+      <input type="password" id="password" placeholder="Password">
 
-  <h1>WELCOME TO LOI</h1>
-  <p class="subtitle">Luxury Begins Here</p>
+      <button onclick="login()">Login</button>
 
-  <!-- LOGIN FORM -->
+      <div class="switch">
+        I don’t have an account?
+        <span onclick="showSignup()">Create account for LOI</span>
+      </div>
+    </div>
 
-  <div id="loginBox">
-    <input type="text" id="email" placeholder="Email or Phone Number">
-    <input type="password" id="password" placeholder="Password">
+    <!-- SIGNUP FORM -->
+    <div id="signupBox" class="hidden">
+      <input type="text" id="firstName" placeholder="First Name">
+      <input type="text" id="lastName" placeholder="Last Name">
 
-```
-<button onclick="login()">Login</button>
+      <input type="email" id="signupEmail" placeholder="Email">
+      <input type="text" id="phone" placeholder="Phone Number">
 
-<div class="switch">
-  I don’t have an account?
-  <span onclick="showSignup()">Create account for LOI</span>
-</div>
-```
+      <input type="password" id="signupPass" placeholder="Password">
+      <input type="password" id="confirmPass" placeholder="Confirm Password">
 
-  </div>
+      <select id="region">
+        <option value="">Region</option>
+        <option>India</option>
+        <option>UAE</option>
+        <option>UK</option>
+        <option>Other</option>
+      </select>
 
-  <!-- SIGNUP FORM -->
+      <select id="title">
+        <option value="">Called as?</option>
+        <option>Mr</option>
+        <option>Mrs</option>
+        <option>Miss</option>
+        <option>Other</option>
+      </select>
 
-  <div id="signupBox" class="hidden">
+      <button onclick="signup()">Create Account</button>
 
-```
-<input type="email" id="signupEmail" placeholder="Email">
-<input type="text" id="phone" placeholder="Phone Number">
+      <div class="switch">
+        Already have an account?
+        <span onclick="showLogin()">Login</span>
+      </div>
+    </div>
 
-<input type="password" id="signupPass" placeholder="Password">
-<input type="password" id="confirmPass" placeholder="Confirm Password">
-
-<select id="region">
-  <option>Region</option>
-  <option>India</option>
-  <option>UAE</option>
-  <option>UK</option>
-  <option>Other</option>
-</select>
-
-<select id="title">
-  <option>Called as?</option>
-  <option>Mr</option>
-  <option>Mrs</option>
-  <option>Miss</option>
-  <option>Other</option>
-</select>
-
-<button onclick="signup()">Create Account</button>
-
-<div class="switch">
-  Already have an account?
-  <span onclick="showLogin()">Login</span>
-</div>
-```
+    <p id="msg"></p>
 
   </div>
 
-  <p id="msg"></p>
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
 
-</div>
+    import {
+      getAuth,
+      signInWithEmailAndPassword,
+      createUserWithEmailAndPassword,
+      updateProfile
+    } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
 
-<!-- FIREBASE -->
+    import {
+      getFirestore,
+      doc,
+      setDoc,
+      serverTimestamp
+    } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
 
-<script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
-import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword }
-from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
+    const firebaseConfig = {
+      apiKey: "AIzaSyBEodih-ToCBTVjMmqC7JFmGvR7qDcdM-8",
+      authDomain: "loi7-1ddfc.firebaseapp.com",
+      projectId: "loi7-1ddfc",
+      appId: "1:777558781536:web:ed9252fe4adaa0d93e9d05"
+    };
 
-const firebaseConfig = {
-  apiKey: "AIzaSyBEodih-ToCBTVjMmqC7JFmGvR7qDcdM-8",
-  authDomain: "loi7-1ddfc.firebaseapp.com",
-  projectId: "loi7-1ddfc",
-  appId: "1:777558781536:web:ed9252fe4adaa0d93e9d05"
-};
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
 
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
+    const msg = document.getElementById("msg");
 
-const msg = document.getElementById("msg");
+    window.showSignup = function () {
+      msg.innerText = "";
+      document.getElementById("loginBox").classList.add("hidden");
+      document.getElementById("signupBox").classList.remove("hidden");
+    };
 
-/* SWITCH UI */
-window.showSignup = () => {
-  document.getElementById("loginBox").classList.add("hidden");
-  document.getElementById("signupBox").classList.remove("hidden");
-};
+    window.showLogin = function () {
+      msg.innerText = "";
+      document.getElementById("signupBox").classList.add("hidden");
+      document.getElementById("loginBox").classList.remove("hidden");
+    };
 
-window.showLogin = () => {
-  document.getElementById("signupBox").classList.add("hidden");
-  document.getElementById("loginBox").classList.remove("hidden");
-};
+    window.login = async function () {
+      const email = document.getElementById("email").value.trim();
+      const pass = document.getElementById("password").value;
 
-/* LOGIN */
-window.login = async function () {
-  const email = document.getElementById("email").value;
-  const pass = document.getElementById("password").value;
+      if (!email || !pass) {
+        msg.innerText = "Please enter email and password";
+        return;
+      }
 
-  try {
-    await signInWithEmailAndPassword(auth, email, pass);
-    window.location.href = "dashboard.html";
-  } catch (err) {
-    msg.innerText = err.message;
-  }
-};
+      try {
+        await signInWithEmailAndPassword(auth, email, pass);
+        window.location.href = "dashboard.html";
+      } catch (err) {
+        msg.innerText = err.message;
+      }
+    };
 
-/* SIGNUP */
-window.signup = async function () {
-  const email = document.getElementById("signupEmail").value;
-  const pass = document.getElementById("signupPass").value;
-  const confirm = document.getElementById("confirmPass").value;
+    window.signup = async function () {
+      const firstName = document.getElementById("firstName").value.trim();
+      const lastName = document.getElementById("lastName").value.trim();
+      const email = document.getElementById("signupEmail").value.trim();
+      const phone = document.getElementById("phone").value.trim();
+      const pass = document.getElementById("signupPass").value;
+      const confirm = document.getElementById("confirmPass").value;
+      const region = document.getElementById("region").value;
+      const title = document.getElementById("title").value;
 
-  if (pass !== confirm) {
-    msg.innerText = "Passwords do not match";
-    return;
-  }
+      if (!firstName || !lastName || !email || !phone || !pass || !confirm || !region || !title) {
+        msg.innerText = "Please fill all fields";
+        return;
+      }
 
-  try {
-    await createUserWithEmailAndPassword(auth, email, pass);
-    msg.innerText = "Account Created Successfully";
-    showLogin();
-  } catch (err) {
-    msg.innerText = err.message;
-  }
-};
-</script>
+      if (pass !== confirm) {
+        msg.innerText = "Passwords do not match";
+        return;
+      }
+
+      try {
+        const userCredential = await createUserWithEmailAndPassword(auth, email, pass);
+        const user = userCredential.user;
+
+        await updateProfile(user, {
+          displayName: `${firstName} ${lastName}`
+        });
+
+        await setDoc(doc(db, "users", user.uid), {
+          firstName: firstName,
+          lastName: lastName,
+          fullName: `${firstName} ${lastName}`,
+          email: email,
+          phone: phone,
+          region: region,
+          title: title,
+          createdAt: serverTimestamp()
+        });
+
+        msg.innerText = "Account created successfully";
+        showLogin();
+
+      } catch (err) {
+        msg.innerText = err.message;
+      }
+    };
+  </script>
 
 </body>
 </html>
