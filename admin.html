@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LOI Admin Panel</title>
+<title>LOI Login</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 
@@ -15,302 +15,76 @@
 }
 
 body{
-  font-family:'Inter',sans-serif;
   background:#000;
-  color:#fff;
+  color:white;
+  font-family:'Inter',sans-serif;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  height:100vh;
 }
 
-/* SIDEBAR */
-.sidebar{
-  position:fixed;
-  width:250px;
-  height:100vh;
-  background:#0d0d0d;
-  border-right:1px solid #222;
-  padding:25px;
+.login-box{
+  width:400px;
+  padding:40px;
+  background:#111;
+  border:1px solid #222;
+  border-radius:20px;
 }
 
 .logo{
   width:140px;
   display:block;
-  margin:auto;
+  margin:0 auto 30px;
 }
 
-.menu{
-  margin-top:40px;
+h2{
+  text-align:center;
+  font-family:'Playfair Display',serif;
+  margin-bottom:25px;
 }
 
-.menu button{
+input{
   width:100%;
   padding:15px;
-  margin-bottom:12px;
-  background:transparent;
-  border:1px solid #333;
-  color:#fff;
-  cursor:pointer;
-  border-radius:12px;
-  transition:.3s;
-}
-
-.menu button:hover,
-.menu button.active{
-  background:#c9a86a;
-  color:#000;
-}
-
-/* MAIN */
-.main{
-  margin-left:250px;
-  padding:30px;
-}
-
-/* TOPBAR */
-.topbar{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  border-bottom:1px solid #222;
-  padding-bottom:20px;
-}
-
-.topbar h1{
-  font-family:'Playfair Display',serif;
-}
-
-.logout{
-  padding:10px 20px;
-  border:1px solid #c9a86a;
-  color:#c9a86a;
-  background:transparent;
-  cursor:pointer;
-}
-
-/* STATS */
-.stats{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-  gap:20px;
-  margin:30px 0;
-}
-
-.stat{
-  padding:25px;
-  background:#111;
-  border:1px solid #222;
-  border-radius:16px;
-}
-
-.stat h2{
-  color:#c9a86a;
-  margin-bottom:10px;
-}
-
-/* PANELS */
-.panel{
-  display:none;
-}
-
-.panel.active{
-  display:block;
-}
-
-.card{
-  background:#111;
-  border:1px solid #222;
-  border-radius:16px;
-  padding:20px;
-  margin-top:20px;
-}
-
-input,select{
-  width:100%;
-  padding:14px;
-  margin:10px 0;
+  margin-bottom:15px;
   background:#000;
   border:1px solid #333;
   color:white;
   border-radius:10px;
 }
 
-.primary{
+button{
+  width:100%;
+  padding:15px;
   background:#c9a86a;
   color:black;
   border:none;
-  padding:12px 20px;
   border-radius:30px;
   cursor:pointer;
-}
-
-.delete{
-  background:#6d1616;
-  color:white;
-  border:none;
-  padding:8px 14px;
-  border-radius:20px;
-  cursor:pointer;
-}
-
-/* TABLE */
-table{
-  width:100%;
-  border-collapse:collapse;
-  margin-top:20px;
-}
-
-th,td{
-  padding:15px;
-  border-bottom:1px solid #222;
-  text-align:left;
-}
-
-th{
-  color:#c9a86a;
-}
-
-.product-img{
-  width:60px;
-  border-radius:8px;
-}
-
-@media(max-width:768px){
-  .sidebar{
-    position:relative;
-    width:100%;
-    height:auto;
-  }
-
-  .main{
-    margin-left:0;
-  }
+  font-weight:600;
 }
 </style>
 </head>
 <body>
 
-<!-- SIDEBAR -->
-<div class="sidebar">
+<div class="login-box">
   <img src="head-logo.png" class="logo">
 
-  <div class="menu">
-    <button class="active" onclick="showPanel('dashboard',this)">Dashboard</button>
-    <button onclick="showPanel('products',this)">Products</button>
-    <button onclick="showPanel('orders',this)">Orders</button>
-    <button onclick="showPanel('users',this)">Users</button>
-  </div>
-</div>
+  <h2>LOI Login</h2>
 
-<!-- MAIN -->
-<div class="main">
+  <input type="email" id="email" placeholder="Email">
+  <input type="password" id="password" placeholder="Password">
 
-  <div class="topbar">
-    <div>
-      <h1>LOI Admin Panel</h1>
-      <p id="adminEmail">Loading...</p>
-    </div>
-
-    <button class="logout" onclick="logout()">Logout</button>
-  </div>
-
-  <!-- DASHBOARD -->
-  <div id="dashboard" class="panel active">
-
-    <div class="stats">
-      <div class="stat">
-        <h2 id="productCount">0</h2>
-        <p>Total Products</p>
-      </div>
-
-      <div class="stat">
-        <h2 id="orderCount">0</h2>
-        <p>Total Orders</p>
-      </div>
-
-      <div class="stat">
-        <h2 id="userCount">0</h2>
-        <p>Total Users</p>
-      </div>
-    </div>
-
-  </div>
-
-  <!-- PRODUCTS -->
-  <div id="products" class="panel">
-
-    <div class="card">
-      <h2>Add Product</h2>
-
-      <input id="productName" placeholder="Product Name">
-
-      <select id="productCategory">
-        <option>Men</option>
-        <option>Women</option>
-        <option>Handbags</option>
-        <option>Accessories</option>
-      </select>
-
-      <input id="productPrice" placeholder="Price">
-      <input id="productImage" placeholder="Image filename">
-
-      <button class="primary" onclick="addProduct()">Add Product</button>
-    </div>
-
-    <table>
-      <thead>
-        <tr>
-          <th>Image</th>
-          <th>Name</th>
-          <th>Category</th>
-          <th>Price</th>
-          <th>Delete</th>
-        </tr>
-      </thead>
-      <tbody id="productTable"></tbody>
-    </table>
-
-  </div>
-
-  <!-- ORDERS -->
-  <div id="orders" class="panel">
-    <table>
-      <thead>
-        <tr>
-          <th>Customer</th>
-          <th>Item</th>
-          <th>Status</th>
-        </tr>
-      </thead>
-      <tbody id="orderTable"></tbody>
-    </table>
-  </div>
-
-  <!-- USERS -->
-  <div id="users" class="panel">
-    <table>
-      <thead>
-        <tr>
-          <th>Email</th>
-          <th>Role</th>
-        </tr>
-      </thead>
-      <tbody id="userTable"></tbody>
-    </table>
-  </div>
-
+  <button onclick="login()">Login</button>
 </div>
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
-import { getAuth, onAuthStateChanged, signOut }
-from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
-
 import {
-  getFirestore,
-  collection,
-  addDoc,
-  getDocs,
-  deleteDoc,
-  doc
-} from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
+  getAuth,
+  signInWithEmailAndPassword
+} from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBEodih-ToCBTVjMmqC7JFmGvR7qDcdM-8",
@@ -321,144 +95,26 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
-const db = getFirestore(app);
 
-/* ADMIN EMAILS */
-const adminEmails = [
-  "admin@loifashion.com"
-];
+window.login = function () {
+  const email = document.getElementById("email").value.trim();
+  const password = document.getElementById("password").value;
 
-onAuthStateChanged(auth, async(user)=>{
-  if(!user){
-    window.location.href="login.html";
-    return;
-  }
+  signInWithEmailAndPassword(auth, email, password)
+    .then((userCredential) => {
+      const user = userCredential.user;
 
-  document.getElementById("adminEmail").innerText=user.email;
-
-  if(!adminEmails.includes(user.email)){
-    alert("Access denied");
-    window.location.href="dashboard.html";
-    return;
-  }
-
-  loadProducts();
-  loadOrders();
-  loadUsers();
-});
-
-window.logout=function(){
-  signOut(auth).then(()=>{
-    window.location.href="login.html";
-  });
+      /* ADMIN ROUTING */
+      if (user.email === "admin@loifashion.com") {
+        window.location.href = "admin.html";
+      } else {
+        window.location.href = "dashboard.html";
+      }
+    })
+    .catch((error) => {
+      alert(error.message);
+    });
 };
-
-window.addProduct=async function(){
-  const name=document.getElementById("productName").value;
-  const category=document.getElementById("productCategory").value;
-  const price=document.getElementById("productPrice").value;
-  const image=document.getElementById("productImage").value;
-
-  if(!name||!price||!image){
-    alert("Fill all fields");
-    return;
-  }
-
-  await addDoc(collection(db,"products"),{
-    name,
-    category,
-    price,
-    image
-  });
-
-  loadProducts();
-};
-
-window.loadProducts=async function(){
-  const snapshot=await getDocs(collection(db,"products"));
-  const table=document.getElementById("productTable");
-  table.innerHTML="";
-
-  document.getElementById("productCount").innerText=snapshot.size;
-
-  snapshot.forEach((docItem)=>{
-    const p=docItem.data();
-
-    table.innerHTML+=`
-      <tr>
-        <td><img src="${p.image}" class="product-img"></td>
-        <td>${p.name}</td>
-        <td>${p.category}</td>
-        <td>${p.price}</td>
-        <td>
-          <button class="delete" onclick="deleteProduct('${docItem.id}')">
-            Delete
-          </button>
-        </td>
-      </tr>
-    `;
-  });
-};
-
-window.deleteProduct=async function(id){
-  await deleteDoc(doc(db,"products",id));
-  loadProducts();
-};
-
-window.loadOrders=async function(){
-  const snapshot=await getDocs(collection(db,"orders"));
-  const table=document.getElementById("orderTable");
-  table.innerHTML="";
-
-  document.getElementById("orderCount").innerText=snapshot.size;
-
-  snapshot.forEach((docItem)=>{
-    const o=docItem.data();
-
-    table.innerHTML+=`
-      <tr>
-        <td>${o.customer || "-"}</td>
-        <td>${o.item || "-"}</td>
-        <td>${o.status || "-"}</td>
-      </tr>
-    `;
-  });
-};
-
-window.loadUsers=async function(){
-  const snapshot=await getDocs(collection(db,"users"));
-  const table=document.getElementById("userTable");
-  table.innerHTML="";
-
-  document.getElementById("userCount").innerText=snapshot.size;
-
-  snapshot.forEach((docItem)=>{
-    const u=docItem.data();
-
-    table.innerHTML+=`
-      <tr>
-        <td>${u.email || "-"}</td>
-        <td>${u.role || "customer"}</td>
-      </tr>
-    `;
-  });
-};
-</script>
-
-<script>
-function showPanel(id,btn){
-  document.querySelectorAll(".panel").forEach(panel=>{
-    panel.classList.remove("active");
-  });
-
-  document.getElementById(id).classList.add("active");
-
-  document.querySelectorAll(".menu button").forEach(button=>{
-    button.classList.remove("active");
-  });
-
-  btn.classList.add("active");
-}
 </script>
 
 </body>
