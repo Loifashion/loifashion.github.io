@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>LOI Cart | Luxury Checkout</title>
+
+<meta name="description" content="Review your luxury cart and checkout with LOI Fashion.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+body{
+  background:#000;
+  color:#fff;
+  font-family:'Inter',sans-serif;
+}
+
+/* HEADER */
+header{
+  padding:20px 50px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  border-bottom:1px solid #222;
+}
+
+.logo{
+  width:130px;
+}
+
+nav{
+  display:flex;
+  gap:30px;
+}
+
+nav a{
+  text-decoration:none;
+  color:white;
+  font-size:14px;
+  letter-spacing:2px;
+}
+
+/* CART */
+.cart-section{
+  padding:60px;
+}
+
+.cart-title{
+  font-family:'Playfair Display',serif;
+  font-size:45px;
+  margin-bottom:30px;
+}
+
+.cart-container{
+  display:grid;
+  grid-template-columns:2fr 1fr;
+  gap:40px;
+}
+
+/* ITEMS */
+.cart-items{
+  background:#111;
+  border:1px solid #222;
+  border-radius:20px;
+  padding:25px;
+}
+
+.cart-item{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:20px 0;
+  border-bottom:1px solid #222;
+}
+
+.item-left{
+  display:flex;
+  align-items:center;
+  gap:20px;
+}
+
+.item-left img{
+  width:100px;
+  border-radius:12px;
+}
+
+.item-info h3{
+  margin-bottom:8px;
+}
+
+.item-info p{
+  color:#aaa;
+  margin-bottom:5px;
+}
+
+/* ACTIONS */
+.qty-controls{
+  display:flex;
+  gap:10px;
+  align-items:center;
+}
+
+.qty-btn{
+  width:35px;
+  height:35px;
+  border:none;
+  background:#c9a86a;
+  cursor:pointer;
+}
+
+.remove-btn{
+  margin-top:10px;
+  background:#5b1111;
+  color:white;
+  border:none;
+  padding:8px 14px;
+  border-radius:20px;
+  cursor:pointer;
+}
+
+/* SUMMARY */
+.summary{
+  background:#111;
+  border:1px solid #222;
+  border-radius:20px;
+  padding:25px;
+  height:fit-content;
+}
+
+.summary h2{
+  font-family:'Playfair Display',serif;
+  margin-bottom:20px;
+}
+
+.summary-box{
+  display:flex;
+  justify-content:space-between;
+  margin-bottom:20px;
+}
+
+.total{
+  color:#c9a86a;
+  font-size:24px;
+}
+
+.checkout-btn{
+  width:100%;
+  padding:15px;
+  border:none;
+  border-radius:30px;
+  background:#c9a86a;
+  color:black;
+  cursor:pointer;
+  font-weight:600;
+}
+
+/* EMPTY */
+.empty-cart{
+  text-align:center;
+  padding:50px;
+  color:#777;
+}
+
+/* FOOTER */
+footer{
+  padding:30px;
+  border-top:1px solid #222;
+  text-align:center;
+  color:#777;
+  margin-top:40px;
+}
+
+@media(max-width:768px){
+  .cart-section{
+    padding:30px 20px;
+  }
+
+  .cart-container{
+    grid-template-columns:1fr;
+  }
+
+  header{
+    padding:20px;
+  }
+
+  nav{
+    gap:15px;
+  }
+
+  .cart-title{
+    font-size:30px;
+  }
+
+  .cart-item{
+    flex-direction:column;
+    align-items:flex-start;
+    gap:20px;
+  }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <img src="head-logo.png" class="logo">
+
+  <nav>
+    <a href="index.html">HOME</a>
+    <a href="product.html">SHOP</a>
+    <a href="dashboard.html">DASHBOARD</a>
+  </nav>
+</header>
+
+<section class="cart-section">
+
+  <h1 class="cart-title">Your Cart</h1>
+
+  <div class="cart-container">
+
+    <!-- CART ITEMS -->
+    <div class="cart-items" id="cartItems"></div>
+
+    <!-- SUMMARY -->
+    <div class="summary">
+      <h2>Order Summary</h2>
+
+      <div class="summary-box">
+        <span>Total Items</span>
+        <span id="totalItems">0</span>
+      </div>
+
+      <div class="summary-box">
+        <span>Total</span>
+        <span class="total" id="totalPrice">AED 0</span>
+      </div>
+
+      <button class="checkout-btn" onclick="goCheckout()">
+        Proceed To Checkout
+      </button>
+    </div>
+
+  </div>
+
+</section>
+
+<footer>
+© 2026 LOI Fashion
+</footer>
+
+<script>
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+function renderCart(){
+  const cartItems=document.getElementById("cartItems");
+  cartItems.innerHTML="";
+
+  if(cart.length===0){
+    cartItems.innerHTML=`
+      <div class="empty-cart">
+        Your cart is empty
+      </div>
+    `;
+    updateSummary();
+    return;
+  }
+
+  cart.forEach((item,index)=>{
+    cartItems.innerHTML+=`
+      <div class="cart-item">
+
+        <div class="item-left">
+          <img src="tshirt_part_1.png">
+
+          <div class="item-info">
+            <h3>${item.name}</h3>
+            <p>Size: ${item.size}</p>
+            <p>Color: ${item.color}</p>
+            <p>AED ${item.price}</p>
+
+            <button class="remove-btn" onclick="removeItem(${index})">
+              Remove
+            </button>
+          </div>
+        </div>
+
+        <div class="qty-controls">
+          <button class="qty-btn" onclick="decreaseQty(${index})">-</button>
+          <span>${item.quantity}</span>
+          <button class="qty-btn" onclick="increaseQty(${index})">+</button>
+        </div>
+
+      </div>
+    `;
+  });
+
+  updateSummary();
+}
+
+function increaseQty(index){
+  cart[index].quantity++;
+  saveCart();
+}
+
+function decreaseQty(index){
+  if(cart[index].quantity>1){
+    cart[index].quantity--;
+  }
+  saveCart();
+}
+
+function removeItem(index){
+  cart.splice(index,1);
+  saveCart();
+}
+
+function saveCart(){
+  localStorage.setItem("cart",JSON.stringify(cart));
+  renderCart();
+}
+
+function updateSummary(){
+  let totalItems=0;
+  let totalPrice=0;
+
+  cart.forEach(item=>{
+    totalItems += item.quantity;
+    totalPrice += item.price * item.quantity;
+  });
+
+  document.getElementById("totalItems").innerText=totalItems;
+  document.getElementById("totalPrice").innerText=`AED ${totalPrice}`;
+}
+
+function goCheckout(){
+  if(cart.length===0){
+    alert("Cart is empty");
+    return;
+  }
+
+  window.location.href="checkout.html";
+}
+
+renderCart();
+</script>
+
+</body>
+</html>
