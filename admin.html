@@ -104,13 +104,14 @@ window.login = function () {
     .then((userCredential) => {
       const user = userCredential.user;
 
-      /* ADMIN ROUTING */
-      if (user.email === "admin@loifashion.com") {
-        window.location.href = "admin.html";
-      } else {
-        window.location.href = "dashboard.html";
-      }
-    })
+     const loggedEmail = user.email.trim().toLowerCase();
+
+if (loggedEmail === "admin@loifashion.com") {
+  window.location.replace("admin.html");
+} else {
+  window.location.replace("dashboard.html");
+}
+      
     .catch((error) => {
       alert(error.message);
     });
