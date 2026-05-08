@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>LOI Order Success</title>
+
+<meta name="description" content="Your LOI luxury order has been placed successfully.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+body{
+  background:#000;
+  color:white;
+  font-family:'Inter',sans-serif;
+  min-height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  padding:20px;
+}
+
+.success-box{
+  width:700px;
+  max-width:100%;
+  background:#111;
+  border:1px solid #222;
+  border-radius:25px;
+  padding:40px;
+  text-align:center;
+}
+
+/* SUCCESS ICON */
+.success-icon{
+  width:100px;
+  height:100px;
+  border:2px solid #c9a86a;
+  border-radius:50%;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  margin:0 auto 30px;
+  font-size:40px;
+  color:#c9a86a;
+  animation:pop 1s ease;
+}
+
+@keyframes pop{
+  0%{
+    transform:scale(0);
+  }
+  100%{
+    transform:scale(1);
+  }
+}
+
+h1{
+  font-family:'Playfair Display',serif;
+  margin-bottom:15px;
+}
+
+.success-text{
+  color:#c9a86a;
+  margin-bottom:30px;
+}
+
+/* ORDER INFO */
+.order-info{
+  text-align:left;
+  margin-top:20px;
+}
+
+.row{
+  display:flex;
+  justify-content:space-between;
+  padding:15px 0;
+  border-bottom:1px solid #222;
+}
+
+.gold{
+  color:#c9a86a;
+}
+
+/* BUTTONS */
+.actions{
+  margin-top:35px;
+  display:flex;
+  justify-content:center;
+  gap:20px;
+  flex-wrap:wrap;
+}
+
+.btn{
+  padding:14px 25px;
+  border-radius:30px;
+  text-decoration:none;
+  cursor:pointer;
+}
+
+.primary{
+  background:#c9a86a;
+  color:black;
+}
+
+.secondary{
+  border:1px solid #c9a86a;
+  color:#c9a86a;
+}
+
+@media(max-width:768px){
+  .success-box{
+    padding:25px;
+  }
+
+  .row{
+    flex-direction:column;
+    gap:8px;
+  }
+}
+</style>
+</head>
+<body>
+
+<div class="success-box">
+
+  <div class="success-icon">
+    ✓
+  </div>
+
+  <h1>Order Confirmed</h1>
+
+  <p class="success-text">
+    Thank you for shopping with LOI Fashion
+  </p>
+
+  <div class="order-info">
+
+    <div class="row">
+      <span>Order ID</span>
+      <span class="gold" id="orderId"></span>
+    </div>
+
+    <div class="row">
+      <span>Customer</span>
+      <span id="customerName"></span>
+    </div>
+
+    <div class="row">
+      <span>Email</span>
+      <span id="customerEmail"></span>
+    </div>
+
+    <div class="row">
+      <span>Phone</span>
+      <span id="customerPhone"></span>
+    </div>
+
+    <div class="row">
+      <span>Payment Method</span>
+      <span id="paymentMethod"></span>
+    </div>
+
+    <div class="row">
+      <span>Total Items</span>
+      <span id="totalItems"></span>
+    </div>
+
+    <div class="row">
+      <span>Order Date</span>
+      <span id="orderDate"></span>
+    </div>
+
+  </div>
+
+  <div class="actions">
+    <a href="index.html" class="btn primary">Continue Shopping</a>
+    <a href="dashboard.html" class="btn secondary">Go Dashboard</a>
+  </div>
+
+</div>
+
+<script>
+const order = JSON.parse(localStorage.getItem("lastOrder"));
+
+if(!order){
+  window.location.href="index.html";
+}
+
+const orderId = "LOI-" + Math.floor(Math.random()*999999);
+
+document.getElementById("orderId").innerText = orderId;
+document.getElementById("customerName").innerText = order.customer;
+document.getElementById("customerEmail").innerText = order.email;
+document.getElementById("customerPhone").innerText = order.phone;
+document.getElementById("paymentMethod").innerText = order.paymentMethod;
+document.getElementById("orderDate").innerText = order.orderDate;
+
+let totalItems = 0;
+
+order.items.forEach(item=>{
+  totalItems += item.quantity;
+});
+
+document.getElementById("totalItems").innerText = totalItems;
+</script>
+
+</body>
+</html>
