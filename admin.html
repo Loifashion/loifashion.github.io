@@ -8,224 +8,248 @@
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 
 <style>
-*{box-sizing:border-box}
-body{
+*{
   margin:0;
-  background:radial-gradient(circle at top,#2a1d0d,#000 45%);
-  color:#fff;
-  font-family:Inter,sans-serif;
+  padding:0;
+  box-sizing:border-box;
 }
+
+body{
+  font-family:'Inter',sans-serif;
+  background:#000;
+  color:#fff;
+}
+
+/* SIDEBAR */
 .sidebar{
   position:fixed;
-  left:0;top:0;
-  width:260px;height:100vh;
-  background:rgba(0,0,0,.92);
-  border-right:1px solid rgba(201,168,106,.3);
-  padding:25px 18px;
+  width:250px;
+  height:100vh;
+  background:#0d0d0d;
+  border-right:1px solid #222;
+  padding:25px;
 }
+
 .logo{
   width:140px;
   display:block;
-  margin:0 auto 35px;
+  margin:auto;
 }
-.sidebar h3{
-  color:#c9a86a;
-  text-align:center;
-  letter-spacing:3px;
-  font-size:12px;
+
+.menu{
+  margin-top:40px;
 }
-.sidebar button{
+
+.menu button{
   width:100%;
-  margin:8px 0;
-  padding:14px;
-  border-radius:30px;
-  border:1px solid rgba(201,168,106,.35);
+  padding:15px;
+  margin-bottom:12px;
   background:transparent;
+  border:1px solid #333;
   color:#fff;
   cursor:pointer;
+  border-radius:12px;
+  transition:.3s;
 }
-.sidebar button:hover,
-.sidebar button.active{
+
+.menu button:hover,
+.menu button.active{
   background:#c9a86a;
   color:#000;
 }
+
+/* MAIN */
 .main{
-  margin-left:260px;
+  margin-left:250px;
   padding:30px;
 }
+
+/* TOPBAR */
 .topbar{
   display:flex;
   justify-content:space-between;
   align-items:center;
-  border-bottom:1px solid rgba(201,168,106,.25);
+  border-bottom:1px solid #222;
   padding-bottom:20px;
 }
-h1,h2{
+
+.topbar h1{
   font-family:'Playfair Display',serif;
 }
-.gold{color:#c9a86a}
+
 .logout{
+  padding:10px 20px;
   border:1px solid #c9a86a;
   color:#c9a86a;
   background:transparent;
-  padding:10px 20px;
   cursor:pointer;
 }
-.logout:hover{
-  background:#c9a86a;
-  color:#000;
-}
+
+/* STATS */
 .stats{
   display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(190px,1fr));
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
   gap:20px;
   margin:30px 0;
 }
+
 .stat{
-  background:rgba(255,255,255,.05);
-  border:1px solid rgba(201,168,106,.25);
   padding:25px;
-  border-radius:20px;
+  background:#111;
+  border:1px solid #222;
+  border-radius:16px;
 }
+
 .stat h2{
-  margin:0;
   color:#c9a86a;
+  margin-bottom:10px;
 }
+
+/* PANELS */
 .panel{
   display:none;
 }
+
 .panel.active{
   display:block;
 }
+
 .card{
-  background:rgba(255,255,255,.05);
-  border:1px solid rgba(201,168,106,.25);
-  border-radius:20px;
-  padding:22px;
-  margin:20px 0;
+  background:#111;
+  border:1px solid #222;
+  border-radius:16px;
+  padding:20px;
+  margin-top:20px;
 }
-input,select,textarea{
+
+input,select{
   width:100%;
-  padding:13px;
-  margin:8px 0 15px;
-  background:#050505;
-  color:#fff;
-  border:1px solid rgba(201,168,106,.4);
+  padding:14px;
+  margin:10px 0;
+  background:#000;
+  border:1px solid #333;
+  color:white;
   border-radius:10px;
 }
-button.primary{
+
+.primary{
   background:#c9a86a;
-  color:#000;
+  color:black;
   border:none;
   padding:12px 20px;
   border-radius:30px;
   cursor:pointer;
 }
-button.danger{
-  background:#5b1111;
+
+.delete{
+  background:#6d1616;
   color:white;
   border:none;
-  padding:9px 14px;
+  padding:8px 14px;
   border-radius:20px;
   cursor:pointer;
 }
+
+/* TABLE */
 table{
   width:100%;
   border-collapse:collapse;
   margin-top:20px;
 }
+
 th,td{
+  padding:15px;
   border-bottom:1px solid #222;
-  padding:14px;
   text-align:left;
 }
-th{color:#c9a86a}
-.product-img{
-  width:65px;
-  border-radius:10px;
-}
-.notice{
-  padding:15px;
-  border:1px solid rgba(201,168,106,.35);
-  border-radius:14px;
+
+th{
   color:#c9a86a;
-  margin-top:20px;
 }
+
+.product-img{
+  width:60px;
+  border-radius:8px;
+}
+
 @media(max-width:768px){
-  .sidebar{position:relative;width:100%;height:auto}
-  .main{margin-left:0;padding:20px}
-  table{font-size:12px}
+  .sidebar{
+    position:relative;
+    width:100%;
+    height:auto;
+  }
+
+  .main{
+    margin-left:0;
+  }
 }
 </style>
 </head>
-
 <body>
 
+<!-- SIDEBAR -->
 <div class="sidebar">
   <img src="head-logo.png" class="logo">
-  <h3>LOI ADMIN</h3>
 
-  <button class="active" onclick="showPanel('dashboard',this)">Dashboard</button>
-  <button onclick="showPanel('products',this)">Products</button>
-  <button onclick="showPanel('orders',this)">Orders</button>
-  <button onclick="showPanel('users',this)">Users</button>
-  <button onclick="showPanel('settings',this)">Settings</button>
-  <button onclick="location.href='dashboard.html'">Customer Dashboard</button>
-  <button onclick="location.href='index.html'">Home</button>
+  <div class="menu">
+    <button class="active" onclick="showPanel('dashboard',this)">Dashboard</button>
+    <button onclick="showPanel('products',this)">Products</button>
+    <button onclick="showPanel('orders',this)">Orders</button>
+    <button onclick="showPanel('users',this)">Users</button>
+  </div>
 </div>
 
+<!-- MAIN -->
 <div class="main">
 
   <div class="topbar">
     <div>
       <h1>LOI Admin Panel</h1>
-      <p class="gold">Manage products, orders, users, and luxury store data.</p>
-      <p>Admin: <span id="adminEmail">Loading...</span></p>
+      <p id="adminEmail">Loading...</p>
     </div>
-    <button class="logout" onclick="logout()">LOGOUT</button>
+
+    <button class="logout" onclick="logout()">Logout</button>
   </div>
 
+  <!-- DASHBOARD -->
   <div id="dashboard" class="panel active">
+
     <div class="stats">
       <div class="stat">
         <h2 id="productCount">0</h2>
         <p>Total Products</p>
       </div>
+
       <div class="stat">
         <h2 id="orderCount">0</h2>
         <p>Total Orders</p>
       </div>
+
       <div class="stat">
         <h2 id="userCount">0</h2>
         <p>Total Users</p>
       </div>
-      <div class="stat">
-        <h2>VIP</h2>
-        <p>Admin Access</p>
-      </div>
     </div>
 
-    <div class="notice">
-      This panel uses Firebase Auth + Firestore. Add products here and they will save in your Firebase project.
-    </div>
   </div>
 
+  <!-- PRODUCTS -->
   <div id="products" class="panel">
-    <h2>Product Manager</h2>
 
     <div class="card">
-      <h3 class="gold">Add New Product</h3>
+      <h2>Add Product</h2>
 
-      <input id="productName" placeholder="Product name">
+      <input id="productName" placeholder="Product Name">
+
       <select id="productCategory">
         <option>Men</option>
         <option>Women</option>
         <option>Handbags</option>
         <option>Accessories</option>
       </select>
-      <input id="productPrice" placeholder="Price, e.g. AED 299">
-      <input id="productImage" placeholder="Image file name, e.g. tshirt_part_1.png">
-      <textarea id="productDescription" placeholder="Product description"></textarea>
+
+      <input id="productPrice" placeholder="Price">
+      <input id="productImage" placeholder="Image filename">
 
       <button class="primary" onclick="addProduct()">Add Product</button>
     </div>
@@ -237,71 +261,39 @@ th{color:#c9a86a}
           <th>Name</th>
           <th>Category</th>
           <th>Price</th>
-          <th>Action</th>
+          <th>Delete</th>
         </tr>
       </thead>
       <tbody id="productTable"></tbody>
     </table>
+
   </div>
 
+  <!-- ORDERS -->
   <div id="orders" class="panel">
-    <h2>Orders</h2>
-
-    <div class="card">
-      <h3 class="gold">Create Test Order</h3>
-      <input id="orderCustomer" placeholder="Customer email">
-      <input id="orderItem" placeholder="Item name">
-      <select id="orderStatus">
-        <option>Processing</option>
-        <option>Shipped</option>
-        <option>Delivered</option>
-        <option>Cancelled</option>
-      </select>
-      <button class="primary" onclick="addOrder()">Add Order</button>
-    </div>
-
     <table>
       <thead>
         <tr>
           <th>Customer</th>
           <th>Item</th>
           <th>Status</th>
-          <th>Date</th>
         </tr>
       </thead>
       <tbody id="orderTable"></tbody>
     </table>
   </div>
 
+  <!-- USERS -->
   <div id="users" class="panel">
-    <h2>Users</h2>
-
     <table>
       <thead>
         <tr>
           <th>Email</th>
           <th>Role</th>
-          <th>Joined</th>
         </tr>
       </thead>
       <tbody id="userTable"></tbody>
     </table>
-  </div>
-
-  <div id="settings" class="panel">
-    <h2>Settings</h2>
-
-    <div class="card">
-      <h3 class="gold">Admin Emails</h3>
-      <p>Edit the <b>adminEmails</b> list inside the script to control who can open this admin panel.</p>
-    </div>
-
-    <div class="card">
-      <h3 class="gold">Firebase Collections Used</h3>
-      <p>products</p>
-      <p>orders</p>
-      <p>users</p>
-    </div>
   </div>
 
 </div>
@@ -317,8 +309,7 @@ import {
   addDoc,
   getDocs,
   deleteDoc,
-  doc,
-  serverTimestamp
+  doc
 } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
 
 const firebaseConfig = {
@@ -332,31 +323,22 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
 
-/* IMPORTANT: add your real admin emails here */
+/* ADMIN EMAILS */
 const adminEmails = [
-  "admin@loifashion.com",
-  "support@loifashion.com"
+  "admin@loifashion.com"
 ];
 
-const adminEmail = document.getElementById("adminEmail");
-
-onAuthStateChanged(auth, async (user) => {
-  if (!user) {
-    window.location.href = "login.html";
+onAuthStateChanged(auth, async(user)=>{
+  if(!user){
+    window.location.href="login.html";
     return;
   }
 
-  adminEmail.innerText = user.email;
+  document.getElementById("adminEmail").innerText=user.email;
 
-  await addDoc(collection(db, "users"), {
-    email: user.email,
-    role: adminEmails.includes(user.email) ? "admin" : "customer",
-    joinedAt: serverTimestamp()
-  }).catch(() => {});
-
-  if (!adminEmails.includes(user.email)) {
-    alert("Access denied. Admins only.");
-    window.location.href = "dashboard.html";
+  if(!adminEmails.includes(user.email)){
+    alert("Access denied");
+    window.location.href="dashboard.html";
     return;
   }
 
@@ -365,127 +347,98 @@ onAuthStateChanged(auth, async (user) => {
   loadUsers();
 });
 
-window.logout = function(){
-  signOut(auth).then(() => {
-    window.location.href = "login.html";
+window.logout=function(){
+  signOut(auth).then(()=>{
+    window.location.href="login.html";
   });
 };
 
-window.addProduct = async function(){
-  const name = document.getElementById("productName").value;
-  const category = document.getElementById("productCategory").value;
-  const price = document.getElementById("productPrice").value;
-  const image = document.getElementById("productImage").value;
-  const description = document.getElementById("productDescription").value;
+window.addProduct=async function(){
+  const name=document.getElementById("productName").value;
+  const category=document.getElementById("productCategory").value;
+  const price=document.getElementById("productPrice").value;
+  const image=document.getElementById("productImage").value;
 
-  if(!name || !price || !image){
-    alert("Please fill product name, price, and image.");
+  if(!name||!price||!image){
+    alert("Fill all fields");
     return;
   }
 
-  await addDoc(collection(db, "products"), {
+  await addDoc(collection(db,"products"),{
     name,
     category,
     price,
-    image,
-    description,
-    createdAt: serverTimestamp()
+    image
   });
-
-  document.getElementById("productName").value = "";
-  document.getElementById("productPrice").value = "";
-  document.getElementById("productImage").value = "";
-  document.getElementById("productDescription").value = "";
 
   loadProducts();
 };
 
-window.loadProducts = async function(){
-  const snapshot = await getDocs(collection(db, "products"));
-  const table = document.getElementById("productTable");
-  table.innerHTML = "";
+window.loadProducts=async function(){
+  const snapshot=await getDocs(collection(db,"products"));
+  const table=document.getElementById("productTable");
+  table.innerHTML="";
 
-  document.getElementById("productCount").innerText = snapshot.size;
+  document.getElementById("productCount").innerText=snapshot.size;
 
-  snapshot.forEach((item) => {
-    const p = item.data();
+  snapshot.forEach((docItem)=>{
+    const p=docItem.data();
 
-    table.innerHTML += `
+    table.innerHTML+=`
       <tr>
         <td><img src="${p.image}" class="product-img"></td>
         <td>${p.name}</td>
         <td>${p.category}</td>
         <td>${p.price}</td>
-        <td><button class="danger" onclick="deleteProduct('${item.id}')">Delete</button></td>
+        <td>
+          <button class="delete" onclick="deleteProduct('${docItem.id}')">
+            Delete
+          </button>
+        </td>
       </tr>
     `;
   });
 };
 
-window.deleteProduct = async function(id){
-  await deleteDoc(doc(db, "products", id));
+window.deleteProduct=async function(id){
+  await deleteDoc(doc(db,"products",id));
   loadProducts();
 };
 
-window.addOrder = async function(){
-  const customer = document.getElementById("orderCustomer").value;
-  const item = document.getElementById("orderItem").value;
-  const status = document.getElementById("orderStatus").value;
+window.loadOrders=async function(){
+  const snapshot=await getDocs(collection(db,"orders"));
+  const table=document.getElementById("orderTable");
+  table.innerHTML="";
 
-  if(!customer || !item){
-    alert("Please fill customer and item.");
-    return;
-  }
+  document.getElementById("orderCount").innerText=snapshot.size;
 
-  await addDoc(collection(db, "orders"), {
-    customer,
-    item,
-    status,
-    createdAt: new Date().toLocaleDateString()
-  });
+  snapshot.forEach((docItem)=>{
+    const o=docItem.data();
 
-  document.getElementById("orderCustomer").value = "";
-  document.getElementById("orderItem").value = "";
-
-  loadOrders();
-};
-
-window.loadOrders = async function(){
-  const snapshot = await getDocs(collection(db, "orders"));
-  const table = document.getElementById("orderTable");
-  table.innerHTML = "";
-
-  document.getElementById("orderCount").innerText = snapshot.size;
-
-  snapshot.forEach((item) => {
-    const o = item.data();
-
-    table.innerHTML += `
+    table.innerHTML+=`
       <tr>
-        <td>${o.customer}</td>
-        <td>${o.item}</td>
-        <td class="gold">${o.status}</td>
-        <td>${o.createdAt || "Today"}</td>
+        <td>${o.customer || "-"}</td>
+        <td>${o.item || "-"}</td>
+        <td>${o.status || "-"}</td>
       </tr>
     `;
   });
 };
 
-window.loadUsers = async function(){
-  const snapshot = await getDocs(collection(db, "users"));
-  const table = document.getElementById("userTable");
-  table.innerHTML = "";
+window.loadUsers=async function(){
+  const snapshot=await getDocs(collection(db,"users"));
+  const table=document.getElementById("userTable");
+  table.innerHTML="";
 
-  document.getElementById("userCount").innerText = snapshot.size;
+  document.getElementById("userCount").innerText=snapshot.size;
 
-  snapshot.forEach((item) => {
-    const u = item.data();
+  snapshot.forEach((docItem)=>{
+    const u=docItem.data();
 
-    table.innerHTML += `
+    table.innerHTML+=`
       <tr>
-        <td>${u.email}</td>
-        <td class="gold">${u.role}</td>
-        <td>Firebase User</td>
+        <td>${u.email || "-"}</td>
+        <td>${u.role || "customer"}</td>
       </tr>
     `;
   });
@@ -493,11 +446,17 @@ window.loadUsers = async function(){
 </script>
 
 <script>
-function showPanel(id, btn){
-  document.querySelectorAll(".panel").forEach(panel => panel.classList.remove("active"));
+function showPanel(id,btn){
+  document.querySelectorAll(".panel").forEach(panel=>{
+    panel.classList.remove("active");
+  });
+
   document.getElementById(id).classList.add("active");
 
-  document.querySelectorAll(".sidebar button").forEach(button => button.classList.remove("active"));
+  document.querySelectorAll(".menu button").forEach(button=>{
+    button.classList.remove("active");
+  });
+
   btn.classList.add("active");
 }
 </script>
