@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LOI Admin Panel</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+*{box-sizing:border-box}
+body{
+  margin:0;
+  background:radial-gradient(circle at top,#2a1d0d,#000 45%);
+  color:#fff;
+  font-family:Inter,sans-serif;
+}
+.sidebar{
+  position:fixed;
+  left:0;top:0;
+  width:260px;height:100vh;
+  background:rgba(0,0,0,.92);
+  border-right:1px solid rgba(201,168,106,.3);
+  padding:25px 18px;
+}
+.logo{
+  width:140px;
+  display:block;
+  margin:0 auto 35px;
+}
+.sidebar h3{
+  color:#c9a86a;
+  text-align:center;
+  letter-spacing:3px;
+  font-size:12px;
+}
+.sidebar button{
+  width:100%;
+  margin:8px 0;
+  padding:14px;
+  border-radius:30px;
+  border:1px solid rgba(201,168,106,.35);
+  background:transparent;
+  color:#fff;
+  cursor:pointer;
+}
+.sidebar button:hover,
+.sidebar button.active{
+  background:#c9a86a;
+  color:#000;
+}
+.main{
+  margin-left:260px;
+  padding:30px;
+}
+.topbar{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  border-bottom:1px solid rgba(201,168,106,.25);
+  padding-bottom:20px;
+}
+h1,h2{
+  font-family:'Playfair Display',serif;
+}
+.gold{color:#c9a86a}
+.logout{
+  border:1px solid #c9a86a;
+  color:#c9a86a;
+  background:transparent;
+  padding:10px 20px;
+  cursor:pointer;
+}
+.logout:hover{
+  background:#c9a86a;
+  color:#000;
+}
+.stats{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(190px,1fr));
+  gap:20px;
+  margin:30px 0;
+}
+.stat{
+  background:rgba(255,255,255,.05);
+  border:1px solid rgba(201,168,106,.25);
+  padding:25px;
+  border-radius:20px;
+}
+.stat h2{
+  margin:0;
+  color:#c9a86a;
+}
+.panel{
+  display:none;
+}
+.panel.active{
+  display:block;
+}
+.card{
+  background:rgba(255,255,255,.05);
+  border:1px solid rgba(201,168,106,.25);
+  border-radius:20px;
+  padding:22px;
+  margin:20px 0;
+}
+input,select,textarea{
+  width:100%;
+  padding:13px;
+  margin:8px 0 15px;
+  background:#050505;
+  color:#fff;
+  border:1px solid rgba(201,168,106,.4);
+  border-radius:10px;
+}
+button.primary{
+  background:#c9a86a;
+  color:#000;
+  border:none;
+  padding:12px 20px;
+  border-radius:30px;
+  cursor:pointer;
+}
+button.danger{
+  background:#5b1111;
+  color:white;
+  border:none;
+  padding:9px 14px;
+  border-radius:20px;
+  cursor:pointer;
+}
+table{
+  width:100%;
+  border-collapse:collapse;
+  margin-top:20px;
+}
+th,td{
+  border-bottom:1px solid #222;
+  padding:14px;
+  text-align:left;
+}
+th{color:#c9a86a}
+.product-img{
+  width:65px;
+  border-radius:10px;
+}
+.notice{
+  padding:15px;
+  border:1px solid rgba(201,168,106,.35);
+  border-radius:14px;
+  color:#c9a86a;
+  margin-top:20px;
+}
+@media(max-width:768px){
+  .sidebar{position:relative;width:100%;height:auto}
+  .main{margin-left:0;padding:20px}
+  table{font-size:12px}
+}
+</style>
+</head>
+
+<body>
+
+<div class="sidebar">
+  <img src="head-logo.png" class="logo">
+  <h3>LOI ADMIN</h3>
+
+  <button class="active" onclick="showPanel('dashboard',this)">Dashboard</button>
+  <button onclick="showPanel('products',this)">Products</button>
+  <button onclick="showPanel('orders',this)">Orders</button>
+  <button onclick="showPanel('users',this)">Users</button>
+  <button onclick="showPanel('settings',this)">Settings</button>
+  <button onclick="location.href='dashboard.html'">Customer Dashboard</button>
+  <button onclick="location.href='index.html'">Home</button>
+</div>
+
+<div class="main">
+
+  <div class="topbar">
+    <div>
+      <h1>LOI Admin Panel</h1>
+      <p class="gold">Manage products, orders, users, and luxury store data.</p>
+      <p>Admin: <span id="adminEmail">Loading...</span></p>
+    </div>
+    <button class="logout" onclick="logout()">LOGOUT</button>
+  </div>
+
+  <div id="dashboard" class="panel active">
+    <div class="stats">
+      <div class="stat">
+        <h2 id="productCount">0</h2>
+        <p>Total Products</p>
+      </div>
+      <div class="stat">
+        <h2 id="orderCount">0</h2>
+        <p>Total Orders</p>
+      </div>
+      <div class="stat">
+        <h2 id="userCount">0</h2>
+        <p>Total Users</p>
+      </div>
+      <div class="stat">
+        <h2>VIP</h2>
+        <p>Admin Access</p>
+      </div>
+    </div>
+
+    <div class="notice">
+      This panel uses Firebase Auth + Firestore. Add products here and they will save in your Firebase project.
+    </div>
+  </div>
+
+  <div id="products" class="panel">
+    <h2>Product Manager</h2>
+
+    <div class="card">
+      <h3 class="gold">Add New Product</h3>
+
+      <input id="productName" placeholder="Product name">
+      <select id="productCategory">
+        <option>Men</option>
+        <option>Women</option>
+        <option>Handbags</option>
+        <option>Accessories</option>
+      </select>
+      <input id="productPrice" placeholder="Price, e.g. AED 299">
+      <input id="productImage" placeholder="Image file name, e.g. tshirt_part_1.png">
+      <textarea id="productDescription" placeholder="Product description"></textarea>
+
+      <button class="primary" onclick="addProduct()">Add Product</button>
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Image</th>
+          <th>Name</th>
+          <th>Category</th>
+          <th>Price</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody id="productTable"></tbody>
+    </table>
+  </div>
+
+  <div id="orders" class="panel">
+    <h2>Orders</h2>
+
+    <div class="card">
+      <h3 class="gold">Create Test Order</h3>
+      <input id="orderCustomer" placeholder="Customer email">
+      <input id="orderItem" placeholder="Item name">
+      <select id="orderStatus">
+        <option>Processing</option>
+        <option>Shipped</option>
+        <option>Delivered</option>
+        <option>Cancelled</option>
+      </select>
+      <button class="primary" onclick="addOrder()">Add Order</button>
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Customer</th>
+          <th>Item</th>
+          <th>Status</th>
+          <th>Date</th>
+        </tr>
+      </thead>
+      <tbody id="orderTable"></tbody>
+    </table>
+  </div>
+
+  <div id="users" class="panel">
+    <h2>Users</h2>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Email</th>
+          <th>Role</th>
+          <th>Joined</th>
+        </tr>
+      </thead>
+      <tbody id="userTable"></tbody>
+    </table>
+  </div>
+
+  <div id="settings" class="panel">
+    <h2>Settings</h2>
+
+    <div class="card">
+      <h3 class="gold">Admin Emails</h3>
+      <p>Edit the <b>adminEmails</b> list inside the script to control who can open this admin panel.</p>
+    </div>
+
+    <div class="card">
+      <h3 class="gold">Firebase Collections Used</h3>
+      <p>products</p>
+      <p>orders</p>
+      <p>users</p>
+    </div>
+  </div>
+
+</div>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
+import { getAuth, onAuthStateChanged, signOut }
+from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
+
+import {
+  getFirestore,
+  collection,
+  addDoc,
+  getDocs,
+  deleteDoc,
+  doc,
+  serverTimestamp
+} from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyBEodih-ToCBTVjMmqC7JFmGvR7qDcdM-8",
+  authDomain: "loi7-1ddfc.firebaseapp.com",
+  projectId: "loi7-1ddfc",
+  appId: "1:777558781536:web:ed9252fe4adaa0d93e9d05"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+
+/* IMPORTANT: add your real admin emails here */
+const adminEmails = [
+  "admin@loifashion.com",
+  "support@loifashion.com"
+];
+
+const adminEmail = document.getElementById("adminEmail");
+
+onAuthStateChanged(auth, async (user) => {
+  if (!user) {
+    window.location.href = "login.html";
+    return;
+  }
+
+  adminEmail.innerText = user.email;
+
+  await addDoc(collection(db, "users"), {
+    email: user.email,
+    role: adminEmails.includes(user.email) ? "admin" : "customer",
+    joinedAt: serverTimestamp()
+  }).catch(() => {});
+
+  if (!adminEmails.includes(user.email)) {
+    alert("Access denied. Admins only.");
+    window.location.href = "dashboard.html";
+    return;
+  }
+
+  loadProducts();
+  loadOrders();
+  loadUsers();
+});
+
+window.logout = function(){
+  signOut(auth).then(() => {
+    window.location.href = "login.html";
+  });
+};
+
+window.addProduct = async function(){
+  const name = document.getElementById("productName").value;
+  const category = document.getElementById("productCategory").value;
+  const price = document.getElementById("productPrice").value;
+  const image = document.getElementById("productImage").value;
+  const description = document.getElementById("productDescription").value;
+
+  if(!name || !price || !image){
+    alert("Please fill product name, price, and image.");
+    return;
+  }
+
+  await addDoc(collection(db, "products"), {
+    name,
+    category,
+    price,
+    image,
+    description,
+    createdAt: serverTimestamp()
+  });
+
+  document.getElementById("productName").value = "";
+  document.getElementById("productPrice").value = "";
+  document.getElementById("productImage").value = "";
+  document.getElementById("productDescription").value = "";
+
+  loadProducts();
+};
+
+window.loadProducts = async function(){
+  const snapshot = await getDocs(collection(db, "products"));
+  const table = document.getElementById("productTable");
+  table.innerHTML = "";
+
+  document.getElementById("productCount").innerText = snapshot.size;
+
+  snapshot.forEach((item) => {
+    const p = item.data();
+
+    table.innerHTML += `
+      <tr>
+        <td><img src="${p.image}" class="product-img"></td>
+        <td>${p.name}</td>
+        <td>${p.category}</td>
+        <td>${p.price}</td>
+        <td><button class="danger" onclick="deleteProduct('${item.id}')">Delete</button></td>
+      </tr>
+    `;
+  });
+};
+
+window.deleteProduct = async function(id){
+  await deleteDoc(doc(db, "products", id));
+  loadProducts();
+};
+
+window.addOrder = async function(){
+  const customer = document.getElementById("orderCustomer").value;
+  const item = document.getElementById("orderItem").value;
+  const status = document.getElementById("orderStatus").value;
+
+  if(!customer || !item){
+    alert("Please fill customer and item.");
+    return;
+  }
+
+  await addDoc(collection(db, "orders"), {
+    customer,
+    item,
+    status,
+    createdAt: new Date().toLocaleDateString()
+  });
+
+  document.getElementById("orderCustomer").value = "";
+  document.getElementById("orderItem").value = "";
+
+  loadOrders();
+};
+
+window.loadOrders = async function(){
+  const snapshot = await getDocs(collection(db, "orders"));
+  const table = document.getElementById("orderTable");
+  table.innerHTML = "";
+
+  document.getElementById("orderCount").innerText = snapshot.size;
+
+  snapshot.forEach((item) => {
+    const o = item.data();
+
+    table.innerHTML += `
+      <tr>
+        <td>${o.customer}</td>
+        <td>${o.item}</td>
+        <td class="gold">${o.status}</td>
+        <td>${o.createdAt || "Today"}</td>
+      </tr>
+    `;
+  });
+};
+
+window.loadUsers = async function(){
+  const snapshot = await getDocs(collection(db, "users"));
+  const table = document.getElementById("userTable");
+  table.innerHTML = "";
+
+  document.getElementById("userCount").innerText = snapshot.size;
+
+  snapshot.forEach((item) => {
+    const u = item.data();
+
+    table.innerHTML += `
+      <tr>
+        <td>${u.email}</td>
+        <td class="gold">${u.role}</td>
+        <td>Firebase User</td>
+      </tr>
+    `;
+  });
+};
+</script>
+
+<script>
+function showPanel(id, btn){
+  document.querySelectorAll(".panel").forEach(panel => panel.classList.remove("active"));
+  document.getElementById(id).classList.add("active");
+
+  document.querySelectorAll(".sidebar button").forEach(button => button.classList.remove("active"));
+  btn.classList.add("active");
+}
+</script>
+
+</body>
+</html>
