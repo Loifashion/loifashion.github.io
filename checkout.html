@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>LOI Checkout | Secure Order</title>
+
+<meta name="description" content="Secure luxury checkout with LOI Fashion.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+body{
+  background:#000;
+  color:white;
+  font-family:'Inter',sans-serif;
+}
+
+/* HEADER */
+header{
+  padding:20px 50px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  border-bottom:1px solid #222;
+}
+
+.logo{
+  width:130px;
+}
+
+nav{
+  display:flex;
+  gap:30px;
+}
+
+nav a{
+  color:white;
+  text-decoration:none;
+  letter-spacing:2px;
+}
+
+/* CHECKOUT */
+.checkout-section{
+  padding:60px;
+}
+
+.checkout-title{
+  font-family:'Playfair Display',serif;
+  font-size:45px;
+  margin-bottom:30px;
+}
+
+.checkout-container{
+  display:grid;
+  grid-template-columns:2fr 1fr;
+  gap:40px;
+}
+
+/* FORM */
+.form-box{
+  background:#111;
+  border:1px solid #222;
+  border-radius:20px;
+  padding:30px;
+}
+
+.form-box h2{
+  margin-bottom:20px;
+}
+
+input,select,textarea{
+  width:100%;
+  padding:15px;
+  margin-bottom:15px;
+  background:#000;
+  border:1px solid #333;
+  color:white;
+  border-radius:10px;
+}
+
+/* SUMMARY */
+.summary{
+  background:#111;
+  border:1px solid #222;
+  border-radius:20px;
+  padding:25px;
+  height:fit-content;
+}
+
+.summary h2{
+  font-family:'Playfair Display',serif;
+  margin-bottom:20px;
+}
+
+.order-item{
+  display:flex;
+  justify-content:space-between;
+  margin-bottom:15px;
+}
+
+.total{
+  margin-top:20px;
+  color:#c9a86a;
+  font-size:24px;
+}
+
+/* BUTTON */
+.place-order{
+  margin-top:25px;
+  width:100%;
+  padding:15px;
+  background:#c9a86a;
+  color:black;
+  border:none;
+  border-radius:30px;
+  cursor:pointer;
+  font-weight:600;
+}
+
+/* FOOTER */
+footer{
+  margin-top:50px;
+  padding:30px;
+  text-align:center;
+  border-top:1px solid #222;
+  color:#777;
+}
+
+@media(max-width:768px){
+  .checkout-section{
+    padding:30px 20px;
+  }
+
+  .checkout-container{
+    grid-template-columns:1fr;
+  }
+
+  header{
+    padding:20px;
+  }
+
+  nav{
+    gap:15px;
+  }
+
+  .checkout-title{
+    font-size:30px;
+  }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <img src="head-logo.png" class="logo">
+
+  <nav>
+    <a href="index.html">HOME</a>
+    <a href="cart.html">CART</a>
+    <a href="dashboard.html">DASHBOARD</a>
+  </nav>
+</header>
+
+<section class="checkout-section">
+
+  <h1 class="checkout-title">Checkout</h1>
+
+  <div class="checkout-container">
+
+    <!-- FORM -->
+    <div class="form-box">
+
+      <h2>Shipping Information</h2>
+
+      <input type="text" id="fullName" placeholder="Full Name">
+      <input type="email" id="email" placeholder="Email">
+      <input type="text" id="phone" placeholder="Phone Number">
+
+      <textarea id="address" placeholder="Full Address"></textarea>
+
+      <input type="text" id="city" placeholder="City">
+      <input type="text" id="country" placeholder="Country">
+
+      <h2>Payment Method</h2>
+
+      <select id="paymentMethod">
+        <option>Cash On Delivery</option>
+        <option>Card Payment</option>
+        <option>Bank Transfer</option>
+      </select>
+
+    </div>
+
+    <!-- SUMMARY -->
+    <div class="summary">
+
+      <h2>Order Summary</h2>
+
+      <div id="orderItems"></div>
+
+      <div class="total" id="totalAmount">
+        AED 0
+      </div>
+
+      <button class="place-order" onclick="placeOrder()">
+        Place Order
+      </button>
+
+    </div>
+
+  </div>
+
+</section>
+
+<footer>
+© 2026 LOI Fashion
+</footer>
+
+<script>
+const cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+function renderOrderSummary(){
+  const orderItems=document.getElementById("orderItems");
+  let total=0;
+
+  orderItems.innerHTML="";
+
+  cart.forEach(item=>{
+    const itemTotal=item.price * item.quantity;
+    total += itemTotal;
+
+    orderItems.innerHTML+=`
+      <div class="order-item">
+        <span>${item.name} x${item.quantity}</span>
+        <span>AED ${itemTotal}</span>
+      </div>
+    `;
+  });
+
+  document.getElementById("totalAmount").innerText=`AED ${total}`;
+}
+
+function placeOrder(){
+  const fullName=document.getElementById("fullName").value;
+  const email=document.getElementById("email").value;
+  const phone=document.getElementById("phone").value;
+  const address=document.getElementById("address").value;
+  const city=document.getElementById("city").value;
+  const country=document.getElementById("country").value;
+  const paymentMethod=document.getElementById("paymentMethod").value;
+
+  if(!fullName || !email || !phone || !address){
+    alert("Please fill all required fields");
+    return;
+  }
+
+  const order={
+    customer:fullName,
+    email,
+    phone,
+    address,
+    city,
+    country,
+    paymentMethod,
+    items:cart,
+    orderDate:new Date().toLocaleString()
+  };
+
+  localStorage.setItem("lastOrder",JSON.stringify(order));
+  localStorage.removeItem("cart");
+
+  window.location.href="success.html";
+}
+
+renderOrderSummary();
+</script>
+
+</body>
+</html>
