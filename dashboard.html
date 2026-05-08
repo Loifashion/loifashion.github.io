@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LOI Dashboard</title>
+<title>LOI Luxury Dashboard</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 
@@ -14,71 +14,132 @@
 
 body {
   margin: 0;
-  background: radial-gradient(circle at top, #1b1409, #000 45%);
+  background: radial-gradient(circle at top left, #2b1d0d, #000 45%);
   color: #fff;
   font-family: 'Inter', sans-serif;
+  overflow-x: hidden;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(circle at 20% 20%, rgba(201,168,106,0.14), transparent 30%),
+    radial-gradient(circle at 80% 10%, rgba(201,168,106,0.08), transparent 25%);
+  pointer-events: none;
+  z-index: -1;
 }
 
 /* SIDEBAR */
 .sidebar {
   position: fixed;
-  left: 0;
   top: 0;
-  width: 250px;
+  left: 0;
+  width: 260px;
   height: 100vh;
-  background: rgba(0,0,0,0.92);
+  padding: 25px 18px;
+  background: rgba(0,0,0,0.88);
   border-right: 1px solid rgba(201,168,106,0.25);
-  padding: 25px 20px;
-  z-index: 100;
+  backdrop-filter: blur(14px);
+  transition: 0.3s;
+  z-index: 1000;
 }
 
-.sidebar img {
-  width: 130px;
+.sidebar.collapsed {
+  width: 86px;
+}
+
+.logo {
+  width: 140px;
   display: block;
-  margin: 0 auto 35px;
-}
-
-.sidebar h3 {
-  color: #c9a86a;
-  font-size: 12px;
-  letter-spacing: 3px;
-  margin-bottom: 20px;
-  text-align: center;
-}
-
-.sidebar a {
-  display: block;
-  color: #fff;
-  text-decoration: none;
-  padding: 14px 18px;
-  margin-bottom: 10px;
-  border-radius: 30px;
-  letter-spacing: 1.5px;
-  font-size: 14px;
+  margin: 0 auto 30px;
   transition: 0.3s;
 }
 
-.sidebar a:hover,
-.sidebar a.active {
+.sidebar.collapsed .logo {
+  width: 52px;
+}
+
+.menu-title {
+  text-align: center;
+  color: #c9a86a;
+  font-size: 11px;
+  letter-spacing: 3px;
+  margin-bottom: 20px;
+}
+
+.sidebar.collapsed .menu-title,
+.sidebar.collapsed .link-text {
+  display: none;
+}
+
+.nav-link {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  color: #eee;
+  text-decoration: none;
+  padding: 14px 16px;
+  border-radius: 30px;
+  margin-bottom: 9px;
+  font-size: 14px;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: 0.25s;
+}
+
+.nav-link:hover,
+.nav-link.active {
   background: #c9a86a;
   color: #000;
 }
 
-/* MAIN */
-.main {
-  margin-left: 250px;
-  min-height: 100vh;
+.icon {
+  font-size: 18px;
+  min-width: 22px;
+  text-align: center;
 }
 
-/* TOP BAR */
+/* MAIN */
+.main {
+  margin-left: 260px;
+  min-height: 100vh;
+  transition: 0.3s;
+}
+
+.main.expanded {
+  margin-left: 86px;
+}
+
+/* TOPBAR */
 .topbar {
+  position: sticky;
+  top: 0;
+  z-index: 500;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 25px 50px;
+  padding: 22px 45px;
+  background: rgba(0,0,0,0.62);
   border-bottom: 1px solid rgba(201,168,106,0.2);
-  background: rgba(0,0,0,0.55);
-  backdrop-filter: blur(10px);
+  backdrop-filter: blur(12px);
+}
+
+.left-top {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.menu-btn {
+  border: 1px solid #c9a86a;
+  background: transparent;
+  color: #c9a86a;
+  width: 42px;
+  height: 42px;
+  cursor: pointer;
+  font-size: 20px;
 }
 
 .topbar h2 {
@@ -105,7 +166,7 @@ body {
 /* HERO */
 .hero {
   text-align: center;
-  padding: 60px 20px 35px;
+  padding: 60px 20px 30px;
 }
 
 .hero small {
@@ -115,7 +176,7 @@ body {
 
 .hero h1 {
   font-family: 'Playfair Display', serif;
-  font-size: 56px;
+  font-size: 58px;
   margin: 15px 0 10px;
 }
 
@@ -124,15 +185,15 @@ body {
 }
 
 .user-box {
-  margin: 25px auto 0;
+  margin: 24px auto 0;
   padding: 14px 28px;
-  border: 1px solid rgba(201,168,106,0.35);
   width: fit-content;
+  border: 1px solid rgba(201,168,106,0.35);
   border-radius: 40px;
-  color: #ddd;
+  background: rgba(255,255,255,0.04);
 }
 
-/* STATS */
+/* DASH CARDS */
 .stats {
   display: flex;
   justify-content: center;
@@ -145,9 +206,15 @@ body {
   width: 220px;
   padding: 25px;
   text-align: center;
-  border-radius: 18px;
-  background: rgba(255,255,255,0.05);
-  border: 1px solid rgba(201,168,106,0.22);
+  border-radius: 20px;
+  background: linear-gradient(145deg, rgba(255,255,255,0.08), rgba(255,255,255,0.02));
+  border: 1px solid rgba(201,168,106,0.24);
+  transition: 0.3s;
+}
+
+.stat-card:hover {
+  transform: translateY(-7px);
+  border-color: #c9a86a;
 }
 
 .stat-card h3 {
@@ -156,7 +223,34 @@ body {
   margin: 0;
 }
 
-/* COLLECTION */
+/* PROFILE */
+.profile-card {
+  max-width: 1000px;
+  margin: 20px auto;
+  padding: 25px;
+  border-radius: 24px;
+  background: rgba(255,255,255,0.045);
+  border: 1px solid rgba(201,168,106,0.22);
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  align-items: center;
+}
+
+.profile-card h3 {
+  font-family: 'Playfair Display', serif;
+  margin: 0;
+  color: #c9a86a;
+}
+
+.profile-badge {
+  padding: 10px 18px;
+  border: 1px solid #c9a86a;
+  border-radius: 40px;
+  color: #c9a86a;
+}
+
+/* SECTION */
 .section {
   padding: 45px 25px;
   text-align: center;
@@ -164,44 +258,172 @@ body {
 
 .section h2 {
   font-family: 'Playfair Display', serif;
-  font-size: 36px;
+  font-size: 38px;
 }
 
+/* TOOLS */
+.tools {
+  display: flex;
+  justify-content: center;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin: 25px auto;
+}
+
+.search-box {
+  width: 300px;
+  padding: 13px 18px;
+  border-radius: 40px;
+  border: 1px solid rgba(201,168,106,0.4);
+  background: rgba(0,0,0,0.5);
+  color: #fff;
+  outline: none;
+}
+
+.filter-btn {
+  padding: 13px 20px;
+  border-radius: 40px;
+  border: 1px solid rgba(201,168,106,0.5);
+  background: transparent;
+  color: #c9a86a;
+  cursor: pointer;
+  transition: 0.25s;
+}
+
+.filter-btn:hover,
+.filter-btn.active {
+  background: #c9a86a;
+  color: #000;
+}
+
+/* PRODUCTS */
 .cards {
   display: flex;
   justify-content: center;
   gap: 28px;
   flex-wrap: wrap;
-  margin-top: 35px;
+  margin-top: 30px;
 }
 
 .card {
-  width: 250px;
+  width: 255px;
   padding: 18px;
-  border-radius: 22px;
+  border-radius: 24px;
   background: rgba(255,255,255,0.045);
   border: 1px solid rgba(201,168,106,0.22);
   transition: 0.35s;
+  position: relative;
 }
 
 .card:hover {
   transform: translateY(-10px);
   border-color: #c9a86a;
-  box-shadow: 0 15px 40px rgba(201,168,106,0.12);
+  box-shadow: 0 15px 40px rgba(201,168,106,0.13);
 }
 
 .card img {
   width: 100%;
   border-radius: 16px;
+  transition: 0.35s;
+}
+
+.card:hover img {
+  transform: scale(1.04);
 }
 
 .card p {
-  letter-spacing: 1.5px;
+  letter-spacing: 1.3px;
+  margin-bottom: 8px;
 }
 
 .tag {
   color: #c9a86a;
-  font-size: 14px;
+  font-size: 13px;
+}
+
+.product-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.product-actions button {
+  flex: 1;
+  padding: 10px;
+  border-radius: 30px;
+  cursor: pointer;
+  border: 1px solid #c9a86a;
+}
+
+.wish-btn {
+  background: transparent;
+  color: #c9a86a;
+}
+
+.cart-btn {
+  background: #c9a86a;
+  color: #000;
+}
+
+/* CART PANEL */
+.cart-panel {
+  position: fixed;
+  top: 0;
+  right: -360px;
+  width: 340px;
+  height: 100vh;
+  background: rgba(0,0,0,0.96);
+  border-left: 1px solid rgba(201,168,106,0.3);
+  z-index: 1500;
+  padding: 25px;
+  transition: 0.3s;
+}
+
+.cart-panel.open {
+  right: 0;
+}
+
+.cart-panel h2 {
+  font-family: 'Playfair Display', serif;
+  color: #c9a86a;
+}
+
+.close-cart {
+  float: right;
+  background: transparent;
+  border: 1px solid #c9a86a;
+  color: #c9a86a;
+  cursor: pointer;
+  padding: 6px 10px;
+}
+
+.cart-item {
+  border-bottom: 1px solid #222;
+  padding: 14px 0;
+  color: #ddd;
+}
+
+/* ORDERS */
+.orders {
+  max-width: 1000px;
+  margin: 20px auto 70px;
+  padding: 25px;
+  border-radius: 24px;
+  background: rgba(255,255,255,0.045);
+  border: 1px solid rgba(201,168,106,0.22);
+}
+
+.orders h2 {
+  font-family: 'Playfair Display', serif;
+  color: #c9a86a;
+}
+
+.order-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  padding: 14px 0;
+  border-bottom: 1px solid #222;
+  color: #ddd;
 }
 
 .footer {
@@ -214,25 +436,57 @@ body {
 /* MOBILE */
 @media (max-width: 768px) {
   .sidebar {
-    position: relative;
-    width: 100%;
-    height: auto;
+    left: -270px;
   }
 
-  .main {
+  .sidebar.mobile-open {
+    left: 0;
+  }
+
+  .sidebar.collapsed {
+    width: 260px;
+  }
+
+  .sidebar.collapsed .menu-title,
+  .sidebar.collapsed .link-text {
+    display: inline;
+  }
+
+  .main,
+  .main.expanded {
     margin-left: 0;
   }
 
   .topbar {
-    padding: 20px;
+    padding: 18px;
+  }
+
+  .topbar h2 {
+    font-size: 18px;
   }
 
   .hero h1 {
-    font-size: 36px;
+    font-size: 38px;
+  }
+
+  .profile-card {
+    flex-direction: column;
+    text-align: center;
+    margin: 20px;
   }
 
   .card {
     width: 90%;
+  }
+
+  .cart-panel {
+    width: 100%;
+    right: -100%;
+  }
+
+  .order-row {
+    grid-template-columns: 1fr;
+    gap: 8px;
   }
 }
 </style>
@@ -240,27 +494,54 @@ body {
 
 <body>
 
-<div class="sidebar">
-  <img src="head-logo.png" alt="LOI Logo">
+<!-- SIDEBAR -->
+<div class="sidebar" id="sidebar">
+  <img src="head-logo.png" class="logo" alt="LOI Logo">
 
-  <h3>DASHBOARD MENU</h3>
+  <div class="menu-title">DASHBOARD</div>
 
-  <a href="#" class="active">Overview</a>
-  <a href="#">Men</a>
-  <a href="#">Women</a>
-  <a href="#">Handbags</a>
-  <a href="#">Accessories</a>
-  <a href="#">New Arrivals</a>
-  <a href="#">Orders</a>
-  <a href="#">Wishlist</a>
-  <a href="collection.html">Collection</a>
-  <a href="index.html">Back To Home</a>
+  <a class="nav-link active" onclick="filterProducts('All')">
+    <span class="icon">◆</span><span class="link-text">Overview</span>
+  </a>
+
+  <a class="nav-link" onclick="filterProducts('Men')">
+    <span class="icon">👔</span><span class="link-text">Men</span>
+  </a>
+
+  <a class="nav-link" onclick="filterProducts('Women')">
+    <span class="icon">◆</span><span class="link-text">Women</span>
+  </a>
+
+  <a class="nav-link" onclick="filterProducts('Handbags')">
+    <span class="icon">👜</span><span class="link-text">Handbags</span>
+  </a>
+
+  <a class="nav-link" onclick="filterProducts('Accessories')">
+    <span class="icon">✦</span><span class="link-text">Accessories</span>
+  </a>
+
+  <a class="nav-link" onclick="openCart()">
+    <span class="icon">🛒</span><span class="link-text">Cart</span>
+  </a>
+
+  <a class="nav-link" href="collection.html">
+    <span class="icon">▣</span><span class="link-text">Collection</span>
+  </a>
+
+  <a class="nav-link" href="index.html">
+    <span class="icon">⌂</span><span class="link-text">Home</span>
+  </a>
 </div>
 
-<div class="main">
+<!-- MAIN -->
+<div class="main" id="main">
 
   <div class="topbar">
-    <h2>LOI Private Dashboard</h2>
+    <div class="left-top">
+      <button class="menu-btn" onclick="toggleSidebar()">☰</button>
+      <h2>LOI Private Dashboard</h2>
+    </div>
+
     <button class="logout-btn" onclick="logout()">LOGOUT</button>
   </div>
 
@@ -276,47 +557,70 @@ body {
 
   <div class="stats">
     <div class="stat-card">
-      <h3>MEN</h3>
-      <p>Luxury Streetwear</p>
+      <h3 id="totalProducts">8</h3>
+      <p>Total Products</p>
     </div>
 
     <div class="stat-card">
-      <h3>WOMEN</h3>
-      <p>Elegant Essentials</p>
+      <h3 id="wishlistCount">0</h3>
+      <p>Wishlist</p>
     </div>
 
     <div class="stat-card">
-      <h3>BAGS</h3>
-      <p>Premium Handbags</p>
+      <h3 id="cartCount">0</h3>
+      <p>Cart Items</p>
     </div>
 
     <div class="stat-card">
-      <h3>ACC</h3>
-      <p>Luxury Accessories</p>
+      <h3>VIP</h3>
+      <p>Member Access</p>
     </div>
   </div>
 
+  <div class="profile-card">
+    <div>
+      <h3>Member Profile</h3>
+      <p>Email: <span id="profileEmail">Loading...</span></p>
+      <p>Status: Private LOI Member</p>
+    </div>
+    <div class="profile-badge">Luxury Access</div>
+  </div>
+
   <div class="section">
-    <h2>Your Collection</h2>
+    <h2>Luxury Collection</h2>
 
-    <div class="cards">
-      <div class="card">
-        <img src="tshirt_part_1.png">
-        <p>LOI EMBLEM TEE</p>
-        <div class="tag">Men</div>
-      </div>
+    <div class="tools">
+      <input type="text" class="search-box" id="searchInput" placeholder="Search LOI products..." onkeyup="searchProducts()">
 
-      <div class="card">
-        <img src="tshirt_part_2.png">
-        <p>LOI SIGNATURE HOODIE</p>
-        <div class="tag">Women</div>
-      </div>
+      <button class="filter-btn active" onclick="filterProducts('All')">All</button>
+      <button class="filter-btn" onclick="filterProducts('Men')">Men</button>
+      <button class="filter-btn" onclick="filterProducts('Women')">Women</button>
+      <button class="filter-btn" onclick="filterProducts('Handbags')">Handbags</button>
+      <button class="filter-btn" onclick="filterProducts('Accessories')">Accessories</button>
+    </div>
 
-      <div class="card">
-        <img src="tshirt_part_3.png">
-        <p>LOI MINIMAL TEE</p>
-        <div class="tag">Accessories</div>
-      </div>
+    <div class="cards" id="productGrid"></div>
+  </div>
+
+  <div class="orders">
+    <h2>Order History</h2>
+
+    <div class="order-row">
+      <strong>Order ID</strong>
+      <strong>Item</strong>
+      <strong>Status</strong>
+    </div>
+
+    <div class="order-row">
+      <span>#LOI-2026-01</span>
+      <span>LOI Emblem Tee</span>
+      <span style="color:#c9a86a;">Delivered</span>
+    </div>
+
+    <div class="order-row">
+      <span>#LOI-2026-02</span>
+      <span>LOI Signature Hoodie</span>
+      <span style="color:#c9a86a;">Processing</span>
     </div>
   </div>
 
@@ -324,6 +628,13 @@ body {
     © 2026 LOI Fashion — Private Dashboard
   </div>
 
+</div>
+
+<!-- CART PANEL -->
+<div class="cart-panel" id="cartPanel">
+  <button class="close-cart" onclick="closeCart()">X</button>
+  <h2>Your Cart</h2>
+  <div id="cartItems"></div>
 </div>
 
 <script type="module">
@@ -342,10 +653,12 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
 const userEmail = document.getElementById("userEmail");
+const profileEmail = document.getElementById("profileEmail");
 
 onAuthStateChanged(auth, (user) => {
   if (user) {
     userEmail.innerText = user.email;
+    profileEmail.innerText = user.email;
   } else {
     window.location.href = "login.html";
   }
@@ -356,6 +669,168 @@ window.logout = function () {
     window.location.href = "login.html";
   });
 };
+</script>
+
+<script>
+const products = [
+  {
+    name: "LOI EMBLEM TEE",
+    category: "Men",
+    image: "tshirt_part_1.png"
+  },
+  {
+    name: "LOI SIGNATURE HOODIE",
+    category: "Women",
+    image: "tshirt_part_2.png"
+  },
+  {
+    name: "LOI MINIMAL TEE",
+    category: "Men",
+    image: "tshirt_part_3.png"
+  },
+  {
+    name: "LOI ROYAL HOODIE",
+    category: "Women",
+    image: "tshirt_part_4.png"
+  },
+  {
+    name: "LOI LUXURY HANDBAG",
+    category: "Handbags",
+    image: "tshirt_part_1.png"
+  },
+  {
+    name: "LOI GOLD ACCESSORY",
+    category: "Accessories",
+    image: "tshirt_part_2.png"
+  },
+  {
+    name: "LOI ELITE CAP",
+    category: "Accessories",
+    image: "tshirt_part_3.png"
+  },
+  {
+    name: "LOI PREMIUM BAG",
+    category: "Handbags",
+    image: "tshirt_part_4.png"
+  }
+];
+
+let currentCategory = "All";
+let wishlist = [];
+let cart = [];
+
+const productGrid = document.getElementById("productGrid");
+const searchInput = document.getElementById("searchInput");
+const wishlistCount = document.getElementById("wishlistCount");
+const cartCount = document.getElementById("cartCount");
+const cartItems = document.getElementById("cartItems");
+
+function renderProducts(list) {
+  productGrid.innerHTML = "";
+
+  if (list.length === 0) {
+    productGrid.innerHTML = "<p>No products found.</p>";
+    return;
+  }
+
+  list.forEach((product, index) => {
+    productGrid.innerHTML += `
+      <div class="card">
+        <img src="${product.image}" alt="${product.name}">
+        <p>${product.name}</p>
+        <div class="tag">${product.category}</div>
+
+        <div class="product-actions">
+          <button class="wish-btn" onclick="addWishlist('${product.name}')">♡ Wishlist</button>
+          <button class="cart-btn" onclick="addCart('${product.name}')">Add</button>
+        </div>
+      </div>
+    `;
+  });
+}
+
+function filterProducts(category) {
+  currentCategory = category;
+
+  document.querySelectorAll(".filter-btn").forEach(btn => {
+    btn.classList.remove("active");
+    if (btn.innerText === category) btn.classList.add("active");
+  });
+
+  document.querySelectorAll(".nav-link").forEach(link => {
+    link.classList.remove("active");
+  });
+
+  const filtered = category === "All"
+    ? products
+    : products.filter(product => product.category === category);
+
+  renderProducts(filtered);
+}
+
+function searchProducts() {
+  const keyword = searchInput.value.toLowerCase();
+
+  let filtered = products.filter(product =>
+    product.name.toLowerCase().includes(keyword) ||
+    product.category.toLowerCase().includes(keyword)
+  );
+
+  if (currentCategory !== "All") {
+    filtered = filtered.filter(product => product.category === currentCategory);
+  }
+
+  renderProducts(filtered);
+}
+
+function addWishlist(name) {
+  if (!wishlist.includes(name)) {
+    wishlist.push(name);
+  }
+  wishlistCount.innerText = wishlist.length;
+}
+
+function addCart(name) {
+  cart.push(name);
+  cartCount.innerText = cart.length;
+  updateCart();
+}
+
+function updateCart() {
+  cartItems.innerHTML = "";
+
+  if (cart.length === 0) {
+    cartItems.innerHTML = "<p>Your cart is empty.</p>";
+    return;
+  }
+
+  cart.forEach(item => {
+    cartItems.innerHTML += `<div class="cart-item">${item}</div>`;
+  });
+}
+
+function openCart() {
+  document.getElementById("cartPanel").classList.add("open");
+}
+
+function closeCart() {
+  document.getElementById("cartPanel").classList.remove("open");
+}
+
+function toggleSidebar() {
+  const sidebar = document.getElementById("sidebar");
+  const main = document.getElementById("main");
+
+  if (window.innerWidth <= 768) {
+    sidebar.classList.toggle("mobile-open");
+  } else {
+    sidebar.classList.toggle("collapsed");
+    main.classList.toggle("expanded");
+  }
+}
+
+renderProducts(products);
+updateCart();
 </script>
 
 </body>
