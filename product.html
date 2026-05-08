@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>LOI Product | Luxury Fashion</title>
+
+<meta name="description" content="Luxury LOI product details, sizes, colors, premium checkout.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+body{
+  background:#000;
+  color:#fff;
+  font-family:'Inter',sans-serif;
+}
+
+/* HEADER */
+header{
+  padding:20px 50px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  border-bottom:1px solid #222;
+}
+
+.logo{
+  width:130px;
+}
+
+nav{
+  display:flex;
+  gap:30px;
+}
+
+nav a{
+  text-decoration:none;
+  color:white;
+  font-size:14px;
+  letter-spacing:2px;
+}
+
+/* PRODUCT SECTION */
+.product-section{
+  padding:60px;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:50px;
+}
+
+/* GALLERY */
+.gallery{
+  display:flex;
+  gap:15px;
+}
+
+.thumbnails{
+  display:flex;
+  flex-direction:column;
+  gap:15px;
+}
+
+.thumbnails img{
+  width:90px;
+  cursor:pointer;
+  border:1px solid #222;
+}
+
+.main-image{
+  flex:1;
+}
+
+.main-image img{
+  width:100%;
+  border-radius:20px;
+}
+
+/* PRODUCT INFO */
+.product-info h1{
+  font-family:'Playfair Display',serif;
+  font-size:45px;
+}
+
+.price{
+  color:#c9a86a;
+  font-size:28px;
+  margin:20px 0;
+}
+
+.desc{
+  color:#aaa;
+  line-height:1.8;
+}
+
+/* OPTIONS */
+.option-box{
+  margin-top:30px;
+}
+
+.option-box h3{
+  margin-bottom:15px;
+}
+
+/* SIZE */
+.sizes{
+  display:flex;
+  gap:10px;
+}
+
+.size-btn{
+  padding:12px 18px;
+  border:1px solid #333;
+  background:transparent;
+  color:white;
+  cursor:pointer;
+}
+
+.size-btn.active{
+  background:#c9a86a;
+  color:black;
+}
+
+/* COLORS */
+.colors{
+  display:flex;
+  gap:15px;
+}
+
+.color{
+  width:35px;
+  height:35px;
+  border-radius:50%;
+  border:2px solid white;
+  cursor:pointer;
+}
+
+/* QUANTITY */
+.qty-box{
+  display:flex;
+  align-items:center;
+  gap:15px;
+  margin-top:20px;
+}
+
+.qty-btn{
+  width:35px;
+  height:35px;
+  border:none;
+  background:#c9a86a;
+  cursor:pointer;
+}
+
+/* BUTTONS */
+.actions{
+  margin-top:35px;
+  display:flex;
+  gap:20px;
+}
+
+.btn{
+  padding:15px 25px;
+  text-decoration:none;
+  border-radius:30px;
+  cursor:pointer;
+}
+
+.cart-btn{
+  background:#c9a86a;
+  color:black;
+  border:none;
+}
+
+.wishlist-btn{
+  background:transparent;
+  border:1px solid #c9a86a;
+  color:#c9a86a;
+}
+
+/* DETAILS */
+.details{
+  padding:50px 60px;
+  border-top:1px solid #222;
+}
+
+.details h2{
+  font-family:'Playfair Display',serif;
+  margin-bottom:20px;
+}
+
+/* FOOTER */
+footer{
+  padding:30px;
+  text-align:center;
+  border-top:1px solid #222;
+  color:#777;
+}
+
+@media(max-width:768px){
+  .product-section{
+    grid-template-columns:1fr;
+    padding:30px 20px;
+  }
+
+  header{
+    padding:20px;
+  }
+
+  nav{
+    gap:15px;
+  }
+
+  .product-info h1{
+    font-size:30px;
+  }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <img src="head-logo.png" class="logo">
+
+  <nav>
+    <a href="index.html">HOME</a>
+    <a href="cart.html">CART</a>
+    <a href="dashboard.html">DASHBOARD</a>
+  </nav>
+</header>
+
+<section class="product-section">
+
+  <!-- GALLERY -->
+  <div class="gallery">
+
+    <div class="thumbnails">
+      <img src="tshirt_part_1.png" onclick="changeImage(this.src)">
+      <img src="tshirt_part_2.png" onclick="changeImage(this.src)">
+      <img src="tshirt_part_3.png" onclick="changeImage(this.src)">
+      <img src="tshirt_part_4.png" onclick="changeImage(this.src)">
+    </div>
+
+    <div class="main-image">
+      <img src="tshirt_part_1.png" id="mainProductImage">
+    </div>
+
+  </div>
+
+  <!-- PRODUCT INFO -->
+  <div class="product-info">
+
+    <h1>LOI EMBLEM TEE</h1>
+
+    <div class="price">AED 199</div>
+
+    <p class="desc">
+      Premium crafted luxury streetwear with minimal design, high-quality cotton, and timeless LOI signature style.
+    </p>
+
+    <!-- SIZE -->
+    <div class="option-box">
+      <h3>Select Size</h3>
+
+      <div class="sizes">
+        <button class="size-btn active" onclick="selectSize(this)">S</button>
+        <button class="size-btn" onclick="selectSize(this)">M</button>
+        <button class="size-btn" onclick="selectSize(this)">L</button>
+        <button class="size-btn" onclick="selectSize(this)">XL</button>
+      </div>
+    </div>
+
+    <!-- COLORS -->
+    <div class="option-box">
+      <h3>Select Color</h3>
+
+      <div class="colors">
+        <div class="color" style="background:black;" onclick="selectColor('Black')"></div>
+        <div class="color" style="background:white;" onclick="selectColor('White')"></div>
+        <div class="color" style="background:#c9a86a;" onclick="selectColor('Gold')"></div>
+      </div>
+    </div>
+
+    <!-- QUANTITY -->
+    <div class="option-box">
+      <h3>Quantity</h3>
+
+      <div class="qty-box">
+        <button class="qty-btn" onclick="decreaseQty()">-</button>
+        <span id="qty">1</span>
+        <button class="qty-btn" onclick="increaseQty()">+</button>
+      </div>
+    </div>
+
+    <!-- BUTTONS -->
+    <div class="actions">
+      <button class="btn cart-btn" onclick="addToCart()">Add To Cart</button>
+      <button class="btn wishlist-btn" onclick="addToWishlist()">Wishlist</button>
+    </div>
+
+  </div>
+
+</section>
+
+<section class="details">
+  <h2>Product Details</h2>
+
+  <p>
+    100% Premium Cotton  
+    Luxury stitched finish  
+    Minimal branding  
+    Premium comfort fit  
+    Designed for luxury streetwear lovers
+  </p>
+</section>
+
+<footer>
+© 2026 LOI Fashion
+</footer>
+
+<script>
+let selectedSize="S";
+let selectedColor="Black";
+let quantity=1;
+
+function changeImage(src){
+  document.getElementById("mainProductImage").src=src;
+}
+
+function selectSize(btn){
+  document.querySelectorAll(".size-btn").forEach(item=>{
+    item.classList.remove("active");
+  });
+
+  btn.classList.add("active");
+  selectedSize=btn.innerText;
+}
+
+function selectColor(color){
+  selectedColor=color;
+}
+
+function increaseQty(){
+  quantity++;
+  document.getElementById("qty").innerText=quantity;
+}
+
+function decreaseQty(){
+  if(quantity>1){
+    quantity--;
+    document.getElementById("qty").innerText=quantity;
+  }
+}
+
+function addToCart(){
+  const cart=JSON.parse(localStorage.getItem("cart")) || [];
+
+  cart.push({
+    name:"LOI EMBLEM TEE",
+    price:199,
+    size:selectedSize,
+    color:selectedColor,
+    quantity:quantity
+  });
+
+  localStorage.setItem("cart",JSON.stringify(cart));
+
+  alert("Added to cart");
+}
+
+function addToWishlist(){
+  const wishlist=JSON.parse(localStorage.getItem("wishlist")) || [];
+
+  wishlist.push({
+    name:"LOI EMBLEM TEE",
+    price:199
+  });
+
+  localStorage.setItem("wishlist",JSON.stringify(wishlist));
+
+  alert("Added to wishlist");
+}
+</script>
+
+</body>
+</html>
